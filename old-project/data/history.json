@@ -1,0 +1,1502 @@
+[
+  {
+    "timestamp": "2026-07-14T14:23:45.136277",
+    "download_speed": 4152.3,
+    "upload_speed": 212326.97
+  },
+  {
+    "timestamp": "2026-07-14T14:23:47.871253",
+    "download_speed": 21032.3,
+    "upload_speed": 5698.02
+  },
+  {
+    "timestamp": "2026-07-14T14:23:50.250309",
+    "download_speed": 72291.9,
+    "upload_speed": 4255.09
+  },
+  {
+    "timestamp": "2026-07-14T14:23:52.761071",
+    "download_speed": 79773.41,
+    "upload_speed": 2923.4
+  },
+  {
+    "timestamp": "2026-07-14T14:23:54.882187",
+    "download_speed": 73212.33,
+    "upload_speed": 3178.98
+  },
+  {
+    "timestamp": "2026-07-14T14:23:57.002110",
+    "download_speed": 63891.22,
+    "upload_speed": 2522.72
+  },
+  {
+    "timestamp": "2026-07-14T14:23:59.380857",
+    "download_speed": 53767.15,
+    "upload_speed": 2576.15
+  },
+  {
+    "timestamp": "2026-07-14T14:24:01.891226",
+    "download_speed": 60424.66,
+    "upload_speed": 3268.05
+  },
+  {
+    "timestamp": "2026-07-14T14:24:04.024736",
+    "download_speed": 63835.76,
+    "upload_speed": 3115.04
+  },
+  {
+    "timestamp": "2026-07-14T14:24:06.151698",
+    "download_speed": 5338.16,
+    "upload_speed": 6016.12
+  },
+  {
+    "timestamp": "2026-07-14T14:24:08.522444",
+    "download_speed": 5041.03,
+    "upload_speed": 198543.06
+  },
+  {
+    "timestamp": "2026-07-14T14:24:11.041036",
+    "download_speed": 15803.2,
+    "upload_speed": 1659.25
+  },
+  {
+    "timestamp": "2026-07-14T14:24:13.632209",
+    "download_speed": 24084.93,
+    "upload_speed": 181431.24
+  },
+  {
+    "timestamp": "2026-07-14T14:24:15.751557",
+    "download_speed": 760.14,
+    "upload_speed": 113.24
+  },
+  {
+    "timestamp": "2026-07-14T14:24:17.870494",
+    "download_speed": 36186.26,
+    "upload_speed": 2862.73
+  },
+  {
+    "timestamp": "2026-07-14T14:24:20.290199",
+    "download_speed": 39190.3,
+    "upload_speed": 2394.92
+  },
+  {
+    "timestamp": "2026-07-14T14:24:22.850616",
+    "download_speed": 34998.25,
+    "upload_speed": 2345.71
+  },
+  {
+    "timestamp": "2026-07-14T14:24:24.970296",
+    "download_speed": 42816.98,
+    "upload_speed": 2375.84
+  },
+  {
+    "timestamp": "2026-07-14T14:24:27.090450",
+    "download_speed": 36402.81,
+    "upload_speed": 2519.61
+  },
+  {
+    "timestamp": "2026-07-14T14:24:29.472650",
+    "download_speed": 37481.48,
+    "upload_speed": 2905.73
+  },
+  {
+    "timestamp": "2026-07-14T14:24:31.990679",
+    "download_speed": 40381.81,
+    "upload_speed": 2561.52
+  },
+  {
+    "timestamp": "2026-07-14T14:24:34.390050",
+    "download_speed": 29954.96,
+    "upload_speed": 2393.13
+  },
+  {
+    "timestamp": "2026-07-14T14:24:36.510046",
+    "download_speed": 38177.42,
+    "upload_speed": 2334.91
+  },
+  {
+    "timestamp": "2026-07-14T14:24:38.631301",
+    "download_speed": 34840.94,
+    "upload_speed": 2456.11
+  },
+  {
+    "timestamp": "2026-07-14T14:24:41.082210",
+    "download_speed": 6572.25,
+    "upload_speed": 1275.85
+  },
+  {
+    "timestamp": "2026-07-14T14:24:43.662048",
+    "download_speed": 4991.78,
+    "upload_speed": 213361.76
+  },
+  {
+    "timestamp": "2026-07-14T14:24:45.780865",
+    "download_speed": 685.76,
+    "upload_speed": 118.46
+  },
+  {
+    "timestamp": "2026-07-14T14:24:47.900589",
+    "download_speed": 20670.2,
+    "upload_speed": 1185.06
+  },
+  {
+    "timestamp": "2026-07-14T14:24:50.579643",
+    "download_speed": 1221.32,
+    "upload_speed": 827.53
+  },
+  {
+    "timestamp": "2026-07-14T14:24:52.702253",
+    "download_speed": 4651.84,
+    "upload_speed": 257389.04
+  },
+  {
+    "timestamp": "2026-07-14T14:24:54.829917",
+    "download_speed": 27285.67,
+    "upload_speed": 1582.01
+  },
+  {
+    "timestamp": "2026-07-14T14:24:56.950413",
+    "download_speed": 41181.8,
+    "upload_speed": 3183.68
+  },
+  {
+    "timestamp": "2026-07-14T14:24:59.082237",
+    "download_speed": 4671.14,
+    "upload_speed": 856.55
+  },
+  {
+    "timestamp": "2026-07-14T14:25:01.213902",
+    "download_speed": 129.48,
+    "upload_speed": 138.86
+  },
+  {
+    "timestamp": "2026-07-14T14:25:05.991799",
+    "download_speed": 2328.45,
+    "upload_speed": 381.55
+  },
+  {
+    "timestamp": "2026-07-14T14:25:08.122392",
+    "download_speed": 293.35,
+    "upload_speed": 153.48
+  },
+  {
+    "timestamp": "2026-07-14T14:25:10.251319",
+    "download_speed": 781.61,
+    "upload_speed": 3709.83
+  },
+  {
+    "timestamp": "2026-07-14T14:25:12.632339",
+    "download_speed": 20713.06,
+    "upload_speed": 20472.82
+  },
+  {
+    "timestamp": "2026-07-14T14:25:15.192908",
+    "download_speed": 1337.19,
+    "upload_speed": 1304.0
+  },
+  {
+    "timestamp": "2026-07-14T14:25:17.601148",
+    "download_speed": 342.99,
+    "upload_speed": 350.47
+  },
+  {
+    "timestamp": "2026-07-14T14:25:19.731652",
+    "download_speed": 295.7,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:25:21.867299",
+    "download_speed": 304.36,
+    "upload_speed": 1178.09
+  },
+  {
+    "timestamp": "2026-07-14T14:25:23.991445",
+    "download_speed": 3826.5,
+    "upload_speed": 572.94
+  },
+  {
+    "timestamp": "2026-07-14T14:25:26.382028",
+    "download_speed": 175.69,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:25:28.831392",
+    "download_speed": 138.81,
+    "upload_speed": 35.11
+  },
+  {
+    "timestamp": "2026-07-14T14:25:31.421785",
+    "download_speed": 106.55,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:25:36.343051",
+    "download_speed": 2129.03,
+    "upload_speed": 55.72
+  },
+  {
+    "timestamp": "2026-07-14T14:25:38.562112",
+    "download_speed": 82.92,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:25:41.061737",
+    "download_speed": 157.62,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:25:43.616287",
+    "download_speed": 110.39,
+    "upload_speed": 25.84
+  },
+  {
+    "timestamp": "2026-07-14T14:25:45.741092",
+    "download_speed": 142.13,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:25:47.872062",
+    "download_speed": 141.72,
+    "upload_speed": 19.71
+  },
+  {
+    "timestamp": "2026-07-14T14:25:50.320913",
+    "download_speed": 271.96,
+    "upload_speed": 35.12
+  },
+  {
+    "timestamp": "2026-07-14T14:25:52.921644",
+    "download_speed": 88.44,
+    "upload_speed": 25.38
+  },
+  {
+    "timestamp": "2026-07-14T14:25:55.332737",
+    "download_speed": 294.47,
+    "upload_speed": 73.0
+  },
+  {
+    "timestamp": "2026-07-14T14:25:57.844169",
+    "download_speed": 611.6,
+    "upload_speed": 272.35
+  },
+  {
+    "timestamp": "2026-07-14T14:26:00.251903",
+    "download_speed": 362.17,
+    "upload_speed": 85.14
+  },
+  {
+    "timestamp": "2026-07-14T14:26:02.821935",
+    "download_speed": 244.36,
+    "upload_speed": 33.46
+  },
+  {
+    "timestamp": "2026-07-14T14:26:05.450990",
+    "download_speed": 2140.68,
+    "upload_speed": 193.98
+  },
+  {
+    "timestamp": "2026-07-14T14:26:07.581818",
+    "download_speed": 332.27,
+    "upload_speed": 36.61
+  },
+  {
+    "timestamp": "2026-07-14T14:26:09.720078",
+    "download_speed": 187.07,
+    "upload_speed": 3131.06
+  },
+  {
+    "timestamp": "2026-07-14T14:26:12.091631",
+    "download_speed": 1204.27,
+    "upload_speed": 857.24
+  },
+  {
+    "timestamp": "2026-07-14T14:26:14.691846",
+    "download_speed": 491.11,
+    "upload_speed": 25.38
+  },
+  {
+    "timestamp": "2026-07-14T14:26:16.834995",
+    "download_speed": 189.44,
+    "upload_speed": 323.82
+  },
+  {
+    "timestamp": "2026-07-14T14:26:18.971596",
+    "download_speed": 374.42,
+    "upload_speed": 71.14
+  },
+  {
+    "timestamp": "2026-07-14T14:26:21.352148",
+    "download_speed": 311.27,
+    "upload_speed": 99.56
+  },
+  {
+    "timestamp": "2026-07-14T14:26:23.913225",
+    "download_speed": 372.89,
+    "upload_speed": 59.35
+  },
+  {
+    "timestamp": "2026-07-14T14:26:26.062883",
+    "download_speed": 171.19,
+    "upload_speed": 116.76
+  },
+  {
+    "timestamp": "2026-07-14T14:26:28.202920",
+    "download_speed": 302.8,
+    "upload_speed": 59.81
+  },
+  {
+    "timestamp": "2026-07-14T14:26:30.610545",
+    "download_speed": 155.34,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:26:33.359449",
+    "download_speed": 100.4,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:26:36.061192",
+    "download_speed": 1779.95,
+    "upload_speed": 164.34
+  },
+  {
+    "timestamp": "2026-07-14T14:26:38.671087",
+    "download_speed": 484.31,
+    "upload_speed": 25.29
+  },
+  {
+    "timestamp": "2026-07-14T14:26:40.801103",
+    "download_speed": 141.78,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:26:42.931998",
+    "download_speed": 151.11,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:26:45.331953",
+    "download_speed": 125.84,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:26:47.915475",
+    "download_speed": 137.02,
+    "upload_speed": 58.83
+  },
+  {
+    "timestamp": "2026-07-14T14:26:50.041838",
+    "download_speed": 223.86,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:26:52.172577",
+    "download_speed": 4980.44,
+    "upload_speed": 215901.21
+  },
+  {
+    "timestamp": "2026-07-14T14:26:54.541768",
+    "download_speed": 4974.27,
+    "upload_speed": 234922.88
+  },
+  {
+    "timestamp": "2026-07-14T14:26:57.080851",
+    "download_speed": 682.53,
+    "upload_speed": 901.9
+  },
+  {
+    "timestamp": "2026-07-14T14:26:59.729967",
+    "download_speed": 21926.07,
+    "upload_speed": 1643.18
+  },
+  {
+    "timestamp": "2026-07-14T14:27:01.854442",
+    "download_speed": 45595.31,
+    "upload_speed": 2762.1
+  },
+  {
+    "timestamp": "2026-07-14T14:27:03.989673",
+    "download_speed": 37506.99,
+    "upload_speed": 2277.04
+  },
+  {
+    "timestamp": "2026-07-14T14:27:06.440486",
+    "download_speed": 35204.2,
+    "upload_speed": 2724.81
+  },
+  {
+    "timestamp": "2026-07-14T14:27:09.019912",
+    "download_speed": 41265.79,
+    "upload_speed": 2855.68
+  },
+  {
+    "timestamp": "2026-07-14T14:27:11.659349",
+    "download_speed": 40084.66,
+    "upload_speed": 2838.86
+  },
+  {
+    "timestamp": "2026-07-14T14:48:20.234333",
+    "download_speed": 97.99,
+    "upload_speed": 5874.1
+  },
+  {
+    "timestamp": "2026-07-14T14:48:22.872625",
+    "download_speed": 6111.53,
+    "upload_speed": 1491.49
+  },
+  {
+    "timestamp": "2026-07-14T14:48:25.003932",
+    "download_speed": 148.73,
+    "upload_speed": 40.35
+  },
+  {
+    "timestamp": "2026-07-14T14:48:27.454397",
+    "download_speed": 192.62,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:48:29.863222",
+    "download_speed": 136.17,
+    "upload_speed": 71.4
+  },
+  {
+    "timestamp": "2026-07-14T14:48:31.991071",
+    "download_speed": 255.66,
+    "upload_speed": 36.66
+  },
+  {
+    "timestamp": "2026-07-14T14:48:34.113015",
+    "download_speed": 77.29,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:48:36.573586",
+    "download_speed": 2053.59,
+    "upload_speed": 160.94
+  },
+  {
+    "timestamp": "2026-07-14T14:48:39.143097",
+    "download_speed": 722.32,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:48:41.272433",
+    "download_speed": 212.27,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:48:43.403051",
+    "download_speed": 21.59,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:48:45.813715",
+    "download_speed": 119.47,
+    "upload_speed": 156.8
+  },
+  {
+    "timestamp": "2026-07-14T14:48:48.372819",
+    "download_speed": 518.54,
+    "upload_speed": 93.0
+  },
+  {
+    "timestamp": "2026-07-14T14:48:50.782971",
+    "download_speed": 270.52,
+    "upload_speed": 17.43
+  },
+  {
+    "timestamp": "2026-07-14T14:48:52.913308",
+    "download_speed": 55.39,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:48:55.179274",
+    "download_speed": 86.5,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:48:57.723298",
+    "download_speed": 46.38,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:49:00.353847",
+    "download_speed": 171.83,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:51:39.553429",
+    "download_speed": 55.35,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:51:41.684793",
+    "download_speed": 178.29,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:51:43.818229",
+    "download_speed": 7637.42,
+    "upload_speed": 3953.7
+  },
+  {
+    "timestamp": "2026-07-14T14:51:45.956153",
+    "download_speed": 36420.37,
+    "upload_speed": 18750.43
+  },
+  {
+    "timestamp": "2026-07-14T14:51:48.096888",
+    "download_speed": 29800.05,
+    "upload_speed": 9839.61
+  },
+  {
+    "timestamp": "2026-07-14T14:51:50.663336",
+    "download_speed": 14665.4,
+    "upload_speed": 6100.26
+  },
+  {
+    "timestamp": "2026-07-14T14:51:53.230568",
+    "download_speed": 71.67,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:51:55.359260",
+    "download_speed": 110.87,
+    "upload_speed": 31.0
+  },
+  {
+    "timestamp": "2026-07-14T14:51:57.498712",
+    "download_speed": 262.68,
+    "upload_speed": 86.94
+  },
+  {
+    "timestamp": "2026-07-14T14:51:59.907161",
+    "download_speed": 222.55,
+    "upload_speed": 153.63
+  },
+  {
+    "timestamp": "2026-07-14T14:52:02.456189",
+    "download_speed": 156.92,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:52:04.884880",
+    "download_speed": 231.4,
+    "upload_speed": 35.41
+  },
+  {
+    "timestamp": "2026-07-14T14:52:07.013038",
+    "download_speed": 2197.67,
+    "upload_speed": 62.03
+  },
+  {
+    "timestamp": "2026-07-14T14:52:09.270433",
+    "download_speed": 236.55,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:52:11.790947",
+    "download_speed": 233.29,
+    "upload_speed": 78.56
+  },
+  {
+    "timestamp": "2026-07-14T14:52:14.308977",
+    "download_speed": 243.05,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:52:16.442499",
+    "download_speed": 1604.85,
+    "upload_speed": 130.3
+  },
+  {
+    "timestamp": "2026-07-14T14:52:18.568134",
+    "download_speed": 1395.35,
+    "upload_speed": 31.05
+  },
+  {
+    "timestamp": "2026-07-14T14:52:20.937291",
+    "download_speed": 1196.63,
+    "upload_speed": 156.17
+  },
+  {
+    "timestamp": "2026-07-14T14:52:23.526648",
+    "download_speed": 1156.65,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:52:26.087014",
+    "download_speed": 209.35,
+    "upload_speed": 59.37
+  },
+  {
+    "timestamp": "2026-07-14T14:52:28.218334",
+    "download_speed": 214.89,
+    "upload_speed": 30.97
+  },
+  {
+    "timestamp": "2026-07-14T14:52:30.346396",
+    "download_speed": 43.23,
+    "upload_speed": 93.04
+  },
+  {
+    "timestamp": "2026-07-14T14:52:32.838350",
+    "download_speed": 183.79,
+    "upload_speed": 31.3
+  },
+  {
+    "timestamp": "2026-07-14T14:52:35.405900",
+    "download_speed": 1753.03,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:52:37.535714",
+    "download_speed": 89.21,
+    "upload_speed": 61.98
+  },
+  {
+    "timestamp": "2026-07-14T14:52:39.666918",
+    "download_speed": 67.57,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:52:42.085255",
+    "download_speed": 189.39,
+    "upload_speed": 170.36
+  },
+  {
+    "timestamp": "2026-07-14T14:52:44.647250",
+    "download_speed": 3531.23,
+    "upload_speed": 9385.27
+  },
+  {
+    "timestamp": "2026-07-14T14:52:47.237778",
+    "download_speed": 397.61,
+    "upload_speed": 261.34
+  },
+  {
+    "timestamp": "2026-07-14T14:52:49.366893",
+    "download_speed": 410.96,
+    "upload_speed": 151.7
+  },
+  {
+    "timestamp": "2026-07-14T14:52:51.496423",
+    "download_speed": 240.43,
+    "upload_speed": 92.98
+  },
+  {
+    "timestamp": "2026-07-14T14:52:53.907947",
+    "download_speed": 57.23,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:52:56.495730",
+    "download_speed": 63.37,
+    "upload_speed": 25.5
+  },
+  {
+    "timestamp": "2026-07-14T14:52:58.927392",
+    "download_speed": 56.75,
+    "upload_speed": 81.43
+  },
+  {
+    "timestamp": "2026-07-14T14:53:01.068966",
+    "download_speed": 119.54,
+    "upload_speed": 246.55
+  },
+  {
+    "timestamp": "2026-07-14T14:53:03.497089",
+    "download_speed": 86.49,
+    "upload_speed": 190.27
+  },
+  {
+    "timestamp": "2026-07-14T14:53:05.937426",
+    "download_speed": 1981.29,
+    "upload_speed": 232.76
+  },
+  {
+    "timestamp": "2026-07-14T14:53:08.499237",
+    "download_speed": 255.29,
+    "upload_speed": 79.63
+  },
+  {
+    "timestamp": "2026-07-14T14:53:10.958260",
+    "download_speed": 122.0,
+    "upload_speed": 34.97
+  },
+  {
+    "timestamp": "2026-07-14T14:53:13.091790",
+    "download_speed": 187.48,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:15.339351",
+    "download_speed": 134.37,
+    "upload_speed": 34.7
+  },
+  {
+    "timestamp": "2026-07-14T14:53:17.858943",
+    "download_speed": 158.76,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:20.480000",
+    "download_speed": 202.21,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:22.896366",
+    "download_speed": 19.04,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:25.023023",
+    "download_speed": 21.63,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:27.400916",
+    "download_speed": 129.53,
+    "upload_speed": 72.33
+  },
+  {
+    "timestamp": "2026-07-14T14:53:29.791189",
+    "download_speed": 158.98,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:32.210599",
+    "download_speed": 75.22,
+    "upload_speed": 35.55
+  },
+  {
+    "timestamp": "2026-07-14T14:53:34.344855",
+    "download_speed": 156.49,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:36.470260",
+    "download_speed": 2422.6,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:38.833036",
+    "download_speed": 792.29,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:41.423166",
+    "download_speed": 857.1,
+    "upload_speed": 404.23
+  },
+  {
+    "timestamp": "2026-07-14T14:53:43.553261",
+    "download_speed": 3784.79,
+    "upload_speed": 80.28
+  },
+  {
+    "timestamp": "2026-07-14T14:53:45.683783",
+    "download_speed": 1446.13,
+    "upload_speed": 283.03
+  },
+  {
+    "timestamp": "2026-07-14T14:53:48.052919",
+    "download_speed": 3069.46,
+    "upload_speed": 89.91
+  },
+  {
+    "timestamp": "2026-07-14T14:53:50.673458",
+    "download_speed": 1185.25,
+    "upload_speed": 65.64
+  },
+  {
+    "timestamp": "2026-07-14T14:53:53.294817",
+    "download_speed": 62.56,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:55.426922",
+    "download_speed": 246.7,
+    "upload_speed": 82.55
+  },
+  {
+    "timestamp": "2026-07-14T14:53:57.557582",
+    "download_speed": 1240.93,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:53:59.927497",
+    "download_speed": 110.55,
+    "upload_speed": 32.91
+  },
+  {
+    "timestamp": "2026-07-14T14:54:02.499246",
+    "download_speed": 1064.65,
+    "upload_speed": 75.44
+  },
+  {
+    "timestamp": "2026-07-14T14:54:04.940366",
+    "download_speed": 919.66,
+    "upload_speed": 117.16
+  },
+  {
+    "timestamp": "2026-07-14T14:54:07.069461",
+    "download_speed": 3830.27,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:09.221783",
+    "download_speed": 2286.82,
+    "upload_speed": 39.96
+  },
+  {
+    "timestamp": "2026-07-14T14:54:11.746728",
+    "download_speed": 891.9,
+    "upload_speed": 68.12
+  },
+  {
+    "timestamp": "2026-07-14T14:54:14.453024",
+    "download_speed": 3189.61,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:16.582729",
+    "download_speed": 254.5,
+    "upload_speed": 120.21
+  },
+  {
+    "timestamp": "2026-07-14T14:54:18.716486",
+    "download_speed": 177.15,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:21.174249",
+    "download_speed": 1518.45,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:23.755172",
+    "download_speed": 430.47,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:26.387509",
+    "download_speed": 124.6,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:28.562014",
+    "download_speed": 1364.9,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:30.698341",
+    "download_speed": 21.53,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:33.118815",
+    "download_speed": 97.5,
+    "upload_speed": 71.06
+  },
+  {
+    "timestamp": "2026-07-14T14:54:35.620630",
+    "download_speed": 2279.54,
+    "upload_speed": 709.88
+  },
+  {
+    "timestamp": "2026-07-14T14:54:37.751653",
+    "download_speed": 182.07,
+    "upload_speed": 182.54
+  },
+  {
+    "timestamp": "2026-07-14T14:54:39.881065",
+    "download_speed": 322.16,
+    "upload_speed": 345.17
+  },
+  {
+    "timestamp": "2026-07-14T14:54:42.372834",
+    "download_speed": 199.46,
+    "upload_speed": 162.53
+  },
+  {
+    "timestamp": "2026-07-14T14:54:44.860844",
+    "download_speed": 1073.15,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:47.532886",
+    "download_speed": 122.75,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:49.673682",
+    "download_speed": 111.17,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:51.814082",
+    "download_speed": 68.21,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:54.215004",
+    "download_speed": 110.79,
+    "upload_speed": 109.12
+  },
+  {
+    "timestamp": "2026-07-14T14:54:56.786651",
+    "download_speed": 178.1,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:54:59.386099",
+    "download_speed": 123.1,
+    "upload_speed": 33.08
+  },
+  {
+    "timestamp": "2026-07-14T14:55:01.517283",
+    "download_speed": 1384.2,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:03.648804",
+    "download_speed": 86.32,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:06.048461",
+    "download_speed": 1886.52,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:08.699834",
+    "download_speed": 125.97,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:11.110305",
+    "download_speed": 108.69,
+    "upload_speed": 37.34
+  },
+  {
+    "timestamp": "2026-07-14T14:55:13.250514",
+    "download_speed": 112.14,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:15.539898",
+    "download_speed": 51.54,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:18.010520",
+    "download_speed": 188.62,
+    "upload_speed": 86.62
+  },
+  {
+    "timestamp": "2026-07-14T14:55:20.828838",
+    "download_speed": 125.61,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:23.872972",
+    "download_speed": 185.93,
+    "upload_speed": 57.82
+  },
+  {
+    "timestamp": "2026-07-14T14:55:26.009590",
+    "download_speed": 98.29,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:28.134962",
+    "download_speed": 212.67,
+    "upload_speed": 36.7
+  },
+  {
+    "timestamp": "2026-07-14T14:55:30.407624",
+    "download_speed": 236.73,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:32.934619",
+    "download_speed": 101.31,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:35.516457",
+    "download_speed": 75.91,
+    "upload_speed": 101.09
+  },
+  {
+    "timestamp": "2026-07-14T14:55:37.646332",
+    "download_speed": 2147.08,
+    "upload_speed": 80.76
+  },
+  {
+    "timestamp": "2026-07-14T14:55:39.777196",
+    "download_speed": 43.17,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:42.249055",
+    "download_speed": 228.17,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:44.809665",
+    "download_speed": 89.04,
+    "upload_speed": 33.59
+  },
+  {
+    "timestamp": "2026-07-14T14:55:47.429557",
+    "download_speed": 202.3,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:49.631345",
+    "download_speed": 2207.31,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:52.280978",
+    "download_speed": 206.07,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:54.460690",
+    "download_speed": 162.41,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:57.011294",
+    "download_speed": 82.33,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:55:59.551353",
+    "download_speed": 157.48,
+    "upload_speed": 67.72
+  },
+  {
+    "timestamp": "2026-07-14T14:56:01.692349",
+    "download_speed": 98.09,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:56:03.832858",
+    "download_speed": 88.76,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:56:06.234482",
+    "download_speed": 1832.51,
+    "upload_speed": 35.81
+  },
+  {
+    "timestamp": "2026-07-14T14:56:08.784499",
+    "download_speed": 169.41,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:56:11.205398",
+    "download_speed": 48.74,
+    "upload_speed": 32.22
+  },
+  {
+    "timestamp": "2026-07-14T14:56:13.343862",
+    "download_speed": 156.19,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:56:15.676040",
+    "download_speed": 117.49,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:56:18.066436",
+    "download_speed": 188.25,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:56:20.688429",
+    "download_speed": 272.69,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:56:23.118062",
+    "download_speed": 279.05,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-14T14:56:25.248271",
+    "download_speed": 246.45,
+    "upload_speed": 79.8
+  },
+  {
+    "timestamp": "2026-07-14T14:56:27.627848",
+    "download_speed": 68.92,
+    "upload_speed": 0
+  },
+  {
+    "timestamp": "2026-07-24T16:49:24.964701",
+    "download_speed": 85556.11,
+    "upload_speed": 3500.02
+  },
+  {
+    "timestamp": "2026-07-24T16:49:27.084394",
+    "download_speed": 91254.19,
+    "upload_speed": 1322.37
+  },
+  {
+    "timestamp": "2026-07-24T16:49:29.207652",
+    "download_speed": 82501.64,
+    "upload_speed": 1622.49
+  },
+  {
+    "timestamp": "2026-07-24T16:49:31.324085",
+    "download_speed": 87557.7,
+    "upload_speed": 1122.18
+  },
+  {
+    "timestamp": "2026-07-24T16:49:33.444046",
+    "download_speed": 97353.21,
+    "upload_speed": 4954.74
+  },
+  {
+    "timestamp": "2026-07-24T16:49:35.564532",
+    "download_speed": 98891.07,
+    "upload_speed": 1198.79
+  },
+  {
+    "timestamp": "2026-07-24T16:49:37.685051",
+    "download_speed": 92762.43,
+    "upload_speed": 3044.53
+  },
+  {
+    "timestamp": "2026-07-24T16:49:39.805317",
+    "download_speed": 107382.52,
+    "upload_speed": 1508.78
+  },
+  {
+    "timestamp": "2026-07-24T16:49:41.923742",
+    "download_speed": 114878.17,
+    "upload_speed": 10241.05
+  },
+  {
+    "timestamp": "2026-07-24T16:49:44.045571",
+    "download_speed": 108148.18,
+    "upload_speed": 18064.83
+  },
+  {
+    "timestamp": "2026-07-24T16:49:46.164619",
+    "download_speed": 193006.99,
+    "upload_speed": 9459.35
+  },
+  {
+    "timestamp": "2026-07-24T16:49:48.285181",
+    "download_speed": 105013.16,
+    "upload_speed": 5004.35
+  },
+  {
+    "timestamp": "2026-07-24T16:49:50.405316",
+    "download_speed": 99827.09,
+    "upload_speed": 1914.49
+  },
+  {
+    "timestamp": "2026-07-24T16:49:52.524849",
+    "download_speed": 114067.95,
+    "upload_speed": 2015.55
+  },
+  {
+    "timestamp": "2026-07-24T16:49:54.656355",
+    "download_speed": 110306.67,
+    "upload_speed": 1162.08
+  },
+  {
+    "timestamp": "2026-07-24T16:49:56.774237",
+    "download_speed": 101457.79,
+    "upload_speed": 1771.6
+  },
+  {
+    "timestamp": "2026-07-24T16:49:58.894582",
+    "download_speed": 94628.37,
+    "upload_speed": 1950.6
+  },
+  {
+    "timestamp": "2026-07-24T16:50:01.014580",
+    "download_speed": 101398.57,
+    "upload_speed": 1115.57
+  },
+  {
+    "timestamp": "2026-07-24T16:50:03.144251",
+    "download_speed": 102454.82,
+    "upload_speed": 2510.72
+  },
+  {
+    "timestamp": "2026-07-24T16:50:05.265219",
+    "download_speed": 91609.79,
+    "upload_speed": 1255.09
+  },
+  {
+    "timestamp": "2026-07-24T16:50:07.924866",
+    "download_speed": 173738.57,
+    "upload_speed": 25986.32
+  },
+  {
+    "timestamp": "2026-07-24T16:50:10.044210",
+    "download_speed": 132867.07,
+    "upload_speed": 6597.37
+  },
+  {
+    "timestamp": "2026-07-24T16:50:12.165632",
+    "download_speed": 105381.05,
+    "upload_speed": 1124.24
+  },
+  {
+    "timestamp": "2026-07-24T16:50:14.564869",
+    "download_speed": 101658.72,
+    "upload_speed": 4117.57
+  },
+  {
+    "timestamp": "2026-07-24T16:50:17.075077",
+    "download_speed": 92862.93,
+    "upload_speed": 1711.01
+  },
+  {
+    "timestamp": "2026-07-24T16:50:19.194683",
+    "download_speed": 113229.69,
+    "upload_speed": 1617.28
+  },
+  {
+    "timestamp": "2026-07-24T16:50:21.314640",
+    "download_speed": 110471.11,
+    "upload_speed": 1940.61
+  },
+  {
+    "timestamp": "2026-07-24T16:50:23.705933",
+    "download_speed": 98958.7,
+    "upload_speed": 1422.66
+  },
+  {
+    "timestamp": "2026-07-24T16:50:26.205454",
+    "download_speed": 100328.44,
+    "upload_speed": 3905.95
+  },
+  {
+    "timestamp": "2026-07-24T16:50:36.545665",
+    "download_speed": 96995.71,
+    "upload_speed": 1951.64
+  },
+  {
+    "timestamp": "2026-07-24T16:50:39.045978",
+    "download_speed": 108055.74,
+    "upload_speed": 1723.8
+  },
+  {
+    "timestamp": "2026-07-24T16:50:41.164571",
+    "download_speed": 113609.49,
+    "upload_speed": 1989.03
+  },
+  {
+    "timestamp": "2026-07-24T16:50:43.285319",
+    "download_speed": 470305.7,
+    "upload_speed": 15166.36
+  },
+  {
+    "timestamp": "2026-07-24T16:50:45.665747",
+    "download_speed": 102526.58,
+    "upload_speed": 8001.54
+  },
+  {
+    "timestamp": "2026-07-24T16:50:48.186015",
+    "download_speed": 105015.49,
+    "upload_speed": 6360.02
+  },
+  {
+    "timestamp": "2026-07-24T16:50:50.555843",
+    "download_speed": 104075.86,
+    "upload_speed": 3945.43
+  },
+  {
+    "timestamp": "2026-07-24T16:50:52.925834",
+    "download_speed": 96081.77,
+    "upload_speed": 1802.12
+  },
+  {
+    "timestamp": "2026-07-24T16:50:55.435734",
+    "download_speed": 99228.3,
+    "upload_speed": 2488.54
+  },
+  {
+    "timestamp": "2026-07-24T16:50:57.555232",
+    "download_speed": 104612.87,
+    "upload_speed": 1078.57
+  },
+  {
+    "timestamp": "2026-07-24T16:50:59.675119",
+    "download_speed": 103846.27,
+    "upload_speed": 1737.82
+  },
+  {
+    "timestamp": "2026-07-24T16:51:02.066562",
+    "download_speed": 100377.99,
+    "upload_speed": 1709.43
+  },
+  {
+    "timestamp": "2026-07-24T16:51:04.596120",
+    "download_speed": 106287.05,
+    "upload_speed": 1395.1
+  },
+  {
+    "timestamp": "2026-07-24T16:51:07.156172",
+    "download_speed": 104001.42,
+    "upload_speed": 2079.65
+  },
+  {
+    "timestamp": "2026-07-24T16:51:09.275704",
+    "download_speed": 105883.27,
+    "upload_speed": 1864.09
+  },
+  {
+    "timestamp": "2026-07-24T16:51:11.396121",
+    "download_speed": 102625.37,
+    "upload_speed": 2443.85
+  },
+  {
+    "timestamp": "2026-07-24T16:51:13.786116",
+    "download_speed": 97110.49,
+    "upload_speed": 2531.8
+  },
+  {
+    "timestamp": "2026-07-24T16:51:16.366372",
+    "download_speed": 105581.47,
+    "upload_speed": 1679.68
+  },
+  {
+    "timestamp": "2026-07-24T16:51:18.486131",
+    "download_speed": 118500.7,
+    "upload_speed": 1714.82
+  },
+  {
+    "timestamp": "2026-07-24T16:51:20.619481",
+    "download_speed": 102034.1,
+    "upload_speed": 1300.77
+  },
+  {
+    "timestamp": "2026-07-24T16:51:23.006368",
+    "download_speed": 101664.05,
+    "upload_speed": 1721.49
+  },
+  {
+    "timestamp": "2026-07-24T16:51:25.506087",
+    "download_speed": 103262.65,
+    "upload_speed": 3530.39
+  },
+  {
+    "timestamp": "2026-07-24T16:51:27.906423",
+    "download_speed": 110399.84,
+    "upload_speed": 1272.32
+  },
+  {
+    "timestamp": "2026-07-24T16:51:30.026335",
+    "download_speed": 125035.23,
+    "upload_speed": 2270.37
+  },
+  {
+    "timestamp": "2026-07-24T16:51:32.147392",
+    "download_speed": 112721.08,
+    "upload_speed": 1489.82
+  },
+  {
+    "timestamp": "2026-07-24T16:51:34.586675",
+    "download_speed": 99362.93,
+    "upload_speed": 1520.12
+  },
+  {
+    "timestamp": "2026-07-24T16:51:37.156609",
+    "download_speed": 107002.61,
+    "upload_speed": 2431.59
+  },
+  {
+    "timestamp": "2026-07-24T16:51:39.276320",
+    "download_speed": 119417.65,
+    "upload_speed": 1254.41
+  },
+  {
+    "timestamp": "2026-07-24T16:51:41.397609",
+    "download_speed": 111287.31,
+    "upload_speed": 2287.28
+  },
+  {
+    "timestamp": "2026-07-24T16:51:43.787037",
+    "download_speed": 104083.92,
+    "upload_speed": 1830.15
+  },
+  {
+    "timestamp": "2026-07-24T16:51:46.307489",
+    "download_speed": 121471.99,
+    "upload_speed": 1577.89
+  },
+  {
+    "timestamp": "2026-07-24T16:51:48.426945",
+    "download_speed": 129847.76,
+    "upload_speed": 6025.14
+  },
+  {
+    "timestamp": "2026-07-24T16:51:50.546864",
+    "download_speed": 114409.14,
+    "upload_speed": 1981.21
+  },
+  {
+    "timestamp": "2026-07-24T16:51:52.926685",
+    "download_speed": 107683.26,
+    "upload_speed": 1606.01
+  },
+  {
+    "timestamp": "2026-07-24T16:51:55.508532",
+    "download_speed": 106196.01,
+    "upload_speed": 1724.34
+  },
+  {
+    "timestamp": "2026-07-24T16:51:57.907060",
+    "download_speed": 109136.09,
+    "upload_speed": 1634.34
+  },
+  {
+    "timestamp": "2026-07-24T16:52:00.026217",
+    "download_speed": 131543.81,
+    "upload_speed": 8710.04
+  },
+  {
+    "timestamp": "2026-07-24T16:52:02.146587",
+    "download_speed": 117243.15,
+    "upload_speed": 2198.69
+  },
+  {
+    "timestamp": "2026-07-24T16:52:04.576904",
+    "download_speed": 109006.34,
+    "upload_speed": 2869.57
+  },
+  {
+    "timestamp": "2026-07-24T16:52:07.156882",
+    "download_speed": 111484.04,
+    "upload_speed": 3635.69
+  },
+  {
+    "timestamp": "2026-07-24T16:52:09.276599",
+    "download_speed": 127441.36,
+    "upload_speed": 1096.85
+  },
+  {
+    "timestamp": "2026-07-24T16:52:11.397025",
+    "download_speed": 109444.45,
+    "upload_speed": 1890.19
+  },
+  {
+    "timestamp": "2026-07-24T16:52:13.787200",
+    "download_speed": 107176.12,
+    "upload_speed": 2811.48
+  }
+]

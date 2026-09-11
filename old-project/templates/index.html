@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeLab Network Monitor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <style>
+        /* ========== CSS Variables ========== */
+        :root {
+            --font-body: 'IBM Plex Sans', sans-serif;
+            --font-heading: 'Orbitron', monospace;
+            --bg-dark: #040707;
+            --accent-cyan: #22d3ee;
+            --accent-emerald: #34d399;
+            --accent-amber: #f59e0b;
+            --accent-violet: #a78bfa;
+            --accent-red: #f87171;
+            --accent-blue: #60a5fa;
+            --accent-rose: #fb7185;
+            --accent-lime: #a3e635;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --glass-bg: rgba(0, 0, 0, 0.3);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-border-hover: rgba(255, 255, 255, 0.18);
+            --radius-card: 28px;
+            --radius-btn: 14px;
+            --radius-sm: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: #040707;
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at top, rgba(18, 190, 154, 0.16), transparent 30%),
+                              linear-gradient(180deg, #091111 0%, #050807 100%);
+            background-attachment: fixed;
+        }
+
+        /* ========== Scrollbar ========== */
+        ::-webkit-scrollbar { width: 12px; height: 12px; }
+        ::-webkit-scrollbar-thumb {
+            border-radius: 999px;
+            border: 3px solid transparent;
+            background: rgba(56, 189, 248, 0.28);
+            background-clip: padding-box;
+        }
+        ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.35); }
+
+        /* ========== Layout ========== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 24px 40px;
+        }
+
+        /* ========== Header ========== */
+        .header {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 18px;
+            border-radius: var(--radius-card);
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 16px 22px;
+            box-shadow: 0 0 60px rgba(6, 255, 190, 0.04);
+        }
+
+        @media (min-width: 1024px) {
+            .header { flex-direction: row; align-items: flex-end; justify-content: space-between; }
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            background: rgba(34, 211, 238, 0.1);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.35em;
+            color: #a5f3fc;
+            width: fit-content;
+        }
+
+        .badge .icon { width: 14px; height: 14px; }
+
+        .header h1 {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #fff;
+        }
+
+        @media (min-width: 768px) {
+            .header h1 { font-size: 26px; }
+        }
+
+        .header h1 span {
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: normal;
+            display: block;
+            margin-top: 4px;
+            color: var(--text-secondary);
+        }
+
+        .header-right {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .router-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            background: rgba(52, 211, 153, 0.1);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
+            color: #a7f3d0;
+        }
+
+        .router-info strong {
+            font-weight: 600;
+            color: #ecfdf5;
+            letter-spacing: 0;
+            text-transform: none;
+        }
+
+        .router-info.compact { padding: 6px 12px; font-size: 10px; }
+
+        .status-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            margin-right: 4px;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.online { background: var(--accent-emerald); box-shadow: 0 0 8px rgba(52, 211, 153, 0.5); }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .refresh-info {
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 4px 12px;
+        }
+
+        /* ========== Stats Cards ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-card {
+            border-radius: 18px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 14px 16px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            border-color: var(--glass-border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover::before { opacity: 1; }
+
+        .stat-card .label {
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .stat-card .value {
+            font-family: var(--font-heading);
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+
+        .stat-card .value.download { color: var(--accent-cyan); text-shadow: 0 0 20px rgba(34, 211, 238, 0.15); }
+        .stat-card .value.upload { color: var(--accent-emerald); text-shadow: 0 0 20px rgba(52, 211, 153, 0.15); }
+        .stat-card .value.total { color: var(--accent-violet); text-shadow: 0 0 20px rgba(167, 139, 250, 0.15); }
+        .stat-card .value.devices { color: var(--accent-cyan); text-shadow: 0 0 20px rgba(34, 211, 238, 0.15); }
+        .stat-card .value.blocked { color: var(--accent-red); text-shadow: 0 0 20px rgba(248, 113, 113, 0.15); }
+        .stat-card .value.ssh { color: var(--accent-blue); text-shadow: 0 0 20px rgba(96, 165, 250, 0.15); }
+        .stat-card .value.ftp { color: var(--accent-lime); text-shadow: 0 0 20px rgba(163, 230, 53, 0.15); }
+
+        .stat-card .sub {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ========== Compact Dashboard Row ========== */
+        .dashboard-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .dashboard-row .graph-section { margin-bottom: 0; }
+
+        .dashboard-graph {
+            flex: 2;
+            min-width: 0;
+        }
+
+        .dashboard-live {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .chart-container.compact {
+            height: 180px;
+        }
+
+        /* ========== Graph Section ========== */
+        .graph-section {
+            border-radius: var(--radius-card);
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 18px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .graph-section:hover {
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .graph-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .graph-header .graph-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: #a5f3fc;
+            margin-bottom: 4px;
+        }
+
+        .graph-header h2 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #fff;
+        }
+
+        .graph-legend {
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+        }
+
+        .graph-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+        }
+
+        .graph-legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        .graph-legend-dot.download { background: var(--accent-cyan); color: var(--accent-cyan); }
+        .graph-legend-dot.upload { background: var(--accent-emerald); color: var(--accent-emerald); }
+
+        .chart-container {
+            position: relative;
+            height: 200px;
+        }
+
+        .chart-container canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* ========== Tabs ========== */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            border: 1px solid var(--glass-border);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-btn:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .tab-btn.active {
+            border-color: rgba(34, 211, 238, 0.6);
+            background: rgba(34, 211, 238, 0.15);
+            color: #a5f3fc;
+            box-shadow: 0 0 24px rgba(125, 211, 252, 0.14);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* ========== Device Table ========== */
+        .device-section {
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 18px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .device-section:hover {
+            border-color: var(--glass-border-hover);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .device-section .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: #a5f3fc;
+            margin-bottom: 4px;
+        }
+
+        .device-section h2 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        .device-section .subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .device-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 12px;
+        }
+
+        .device-table th {
+            text-align: left;
+            padding: 8px 14px;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.28em;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        .device-table td {
+            padding: 12px 14px;
+            font-size: 13px;
+            vertical-align: middle;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .device-table tr td:first-child {
+            border-radius: 16px 0 0 16px;
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .device-table tr td:last-child {
+            border-radius: 0 16px 16px 0;
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .device-table tr td:not(:first-child):not(:last-child) {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .device-table tr:hover td {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .device-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .device-status .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .device-status .dot.online { background: var(--accent-emerald); box-shadow: 0 0 8px rgba(52, 211, 153, 0.5); }
+        .device-status .dot.offline { background: var(--text-muted); }
+
+        .device-name { font-weight: 500; }
+        .device-name .nickname { color: var(--accent-cyan); }
+        .device-name .hostname { color: var(--text-muted); font-size: 12px; }
+
+        .device-mac {
+            font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.2px;
+        }
+
+        .device-ip { color: var(--text-muted); font-size: 12px; }
+
+        .device-signal { font-size: 12px; color: var(--text-muted); }
+
+        .device-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: flex-start;
+        }
+
+        /* ========== Buttons ========== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: var(--radius-btn);
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn:hover:not(:disabled) {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:active:not(:disabled) { transform: translateY(0); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .btn-sm { padding: 6px 14px; font-size: 12px; border-radius: var(--radius-sm); }
+
+        .btn-primary {
+            border-color: rgba(34, 211, 238, 0.3);
+            background: rgba(34, 211, 238, 0.1);
+            color: #a5f3fc;
+        }
+        .btn-primary:hover:not(:disabled) {
+            border-color: rgba(34, 211, 238, 0.5);
+            background: rgba(34, 211, 238, 0.2);
+            box-shadow: 0 4px 16px rgba(34, 211, 238, 0.15);
+        }
+
+        .btn-danger {
+            border-color: rgba(248, 113, 113, 0.3);
+            background: rgba(248, 113, 113, 0.1);
+            color: #fecaca;
+        }
+        .btn-danger:hover:not(:disabled) {
+            border-color: rgba(248, 113, 113, 0.5);
+            background: rgba(248, 113, 113, 0.2);
+            box-shadow: 0 4px 16px rgba(248, 113, 113, 0.15);
+        }
+
+        .btn-warning {
+            border-color: rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.1);
+            color: #fde68a;
+        }
+        .btn-warning:hover:not(:disabled) {
+            border-color: rgba(245, 158, 11, 0.5);
+            background: rgba(245, 158, 11, 0.2);
+            box-shadow: 0 4px 16px rgba(245, 158, 11, 0.15);
+        }
+
+        .btn-success {
+            border-color: rgba(52, 211, 153, 0.3);
+            background: rgba(52, 211, 153, 0.1);
+            color: #a7f3d0;
+        }
+        .btn-success:hover:not(:disabled) {
+            border-color: rgba(52, 211, 153, 0.5);
+            background: rgba(52, 211, 153, 0.2);
+            box-shadow: 0 4px 16px rgba(52, 211, 153, 0.15);
+        }
+
+        .btn-ghost {
+            border-color: var(--glass-border);
+            background: transparent;
+            color: var(--text-muted);
+        }
+        .btn-ghost:hover:not(:disabled) {
+            border-color: var(--glass-border-hover);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-secondary);
+        }
+
+        /* ========== Nickname Input ========== */
+        .nickname-form {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .nickname-input {
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 6px 10px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 13px;
+            width: 120px;
+            outline: none;
+            transition: all 0.25s;
+        }
+
+        .nickname-input:focus {
+            border-color: rgba(34, 211, 238, 0.4);
+            background: rgba(0, 0, 0, 0.35);
+            box-shadow: 0 0 16px rgba(34, 211, 238, 0.08);
+        }
+
+        .nickname-input::placeholder { color: var(--text-muted); }
+
+        /* ========== Blocked Devices ========== */
+        .blocked-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .blocked-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            border-radius: var(--radius-btn);
+            border: 1px solid rgba(248, 113, 113, 0.15);
+            background: rgba(248, 113, 113, 0.05);
+            transition: all 0.2s;
+        }
+
+        .blocked-item:hover {
+            background: rgba(248, 113, 113, 0.08);
+            border-color: rgba(248, 113, 113, 0.25);
+        }
+
+        .blocked-item .blocked-mac {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* ========== Toast ========== */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .toast {
+            padding: 14px 20px;
+            border-radius: var(--radius-btn);
+            font-size: 13px;
+            font-weight: 500;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            animation: slideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 360px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .toast.success {
+            background: rgba(52, 211, 153, 0.35);
+            color: #a7f3d0;
+            border-color: rgba(52, 211, 153, 0.2);
+        }
+        .toast.error {
+            background: rgba(248, 113, 113, 0.35);
+            color: #fecaca;
+            border-color: rgba(248, 113, 113, 0.2);
+        }
+        .toast.info {
+            background: rgba(34, 211, 238, 0.35);
+            color: #a5f3fc;
+            border-color: rgba(34, 211, 238, 0.2);
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%) scale(0.95); opacity: 0; }
+            to { transform: translateX(0) scale(1); opacity: 1; }
+        }
+
+        /* ========== Loading ========== */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .spinner {
+            width: 26px;
+            height: 26px;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-top-color: var(--accent-cyan);
+            border-right-color: var(--accent-emerald);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin-right: 12px;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ========== Settings Form ========== */
+        .settings-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .settings-field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .settings-field label {
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-secondary);
+        }
+
+        .settings-input {
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 14px;
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.25s;
+            width: 100%;
+        }
+
+        .settings-input:focus {
+            border-color: rgba(34, 211, 238, 0.4);
+            background: rgba(0, 0, 0, 0.45);
+            box-shadow: 0 0 16px rgba(34, 211, 238, 0.08);
+        }
+
+        .settings-input::placeholder { color: var(--text-muted); }
+
+        .settings-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .settings-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .settings-status {
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+
+        .settings-status-ok {
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            background: rgba(52, 211, 153, 0.1);
+            color: #a7f3d0;
+        }
+
+        .settings-status-err {
+            border: 1px solid rgba(248, 113, 113, 0.2);
+            background: rgba(248, 113, 113, 0.1);
+            color: #fecaca;
+        }
+
+        .settings-status-info {
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            background: rgba(34, 211, 238, 0.1);
+            color: #a5f3fc;
+        }
+
+        /* ========== Empty State ========== */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-state .icon { font-size: 48px; margin-bottom: 12px; opacity: 0.4; }
+        .empty-state p { font-size: 14px; }
+
+        /* ========== Row Actions ========== */
+        .row-actions { display: flex; gap: 6px; align-items: center; }
+
+        /* ========== Reconnect button ========== */
+        .reconnect-btn {
+            background: transparent;
+            border: none;
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0 2px;
+            margin-left: 4px;
+            transition: all 0.2s;
+            vertical-align: middle;
+            line-height: 1;
+        }
+
+        .reconnect-btn:hover { color: var(--accent-cyan); transform: rotate(180deg); }
+        .reconnect-btn:active { transform: rotate(360deg); }
+
+        /* ========== Live Data Table ========== */
+        .live-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+
+        .live-item {
+            border-radius: 14px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 14px;
+            transition: all 0.3s ease;
+        }
+
+        .live-item:hover {
+            border-color: var(--glass-border-hover);
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .live-item-label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .live-dot.download { background: var(--accent-cyan); box-shadow: 0 0 6px rgba(34, 211, 238, 0.5); }
+        .live-dot.upload { background: var(--accent-emerald); box-shadow: 0 0 6px rgba(52, 211, 153, 0.5); }
+
+        .live-item-value {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        .live-item-value.download { color: var(--accent-cyan); }
+        .live-item-value.upload { color: var(--accent-emerald); }
+        .live-item-value.total { color: var(--accent-violet); }
+
+        .live-item-sub {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .live-timestamp {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 8px 14px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        /* ========== Bandwidth Mini Charts ========== */
+        .bw-mini {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .bw-bar {
+            display: inline-block;
+            height: 4px;
+            border-radius: 2px;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+
+        .bw-bar.in { background: var(--accent-cyan); }
+        .bw-bar.out { background: var(--accent-emerald); }
+
+        /* ========== Responsive ========== */
+        @media (max-width: 1200px) {
+            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+            .stat-card .value { font-size: 22px; }
+        }
+
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+            .stat-card .value { font-size: 20px; }
+            .live-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 8px 10px; }
+            .header { padding: 12px 16px; gap: 12px; border-radius: 20px; }
+            .header h1 { font-size: 18px; }
+            .header h1 span { font-size: 12px; margin-top: 2px; }
+            .badge { font-size: 9px; padding: 3px 10px; }
+            .header-right { gap: 6px; }
+            .router-info { padding: 6px 10px; font-size: 9px; gap: 4px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .stat-card { padding: 12px 14px; border-radius: 14px; }
+            .stat-card .value { font-size: 18px; }
+            .stat-card .label { font-size: 10px; }
+            .stat-card .sub { font-size: 10px; }
+            .graph-section { padding: 12px; border-radius: 16px; }
+            .graph-header h2 { font-size: 14px; }
+            .chart-container { height: 160px; }
+            .live-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .live-item { padding: 8px 10px; border-radius: 12px; }
+            .live-item-value { font-size: 13px; }
+            .live-item-label { font-size: 9px; }
+            .tabs { gap: 6px; }
+            .tab-btn { padding: 6px 12px; font-size: 12px; }
+            .device-section { padding: 12px; border-radius: 16px; }
+            .device-section h2 { font-size: 14px; }
+            .device-section .subtitle { font-size: 12px; margin-bottom: 8px; }
+            .device-table { font-size: 11px; }
+            .device-table td { padding: 8px 8px; }
+            .device-mac { font-size: 10px; }
+            .nickname-input { width: 70px; font-size: 11px; padding: 4px 8px; }
+            .btn { padding: 5px 8px; font-size: 11px; }
+            .btn-sm { padding: 4px 8px; font-size: 10px; }
+            .device-actions { gap: 4px; }
+            .refresh-info { font-size: 10px; padding: 2px 8px; }
+        }
+
+        @media (max-width: 640px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .stat-card { padding: 10px 12px; border-radius: 12px; }
+            .stat-card .value { font-size: 16px; }
+            .stat-card .label { font-size: 9px; margin-bottom: 4px; }
+            .stat-card .sub { font-size: 10px; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 6px 8px; }
+            .header { padding: 10px 12px; border-radius: 16px; gap: 10px; }
+            .header h1 { font-size: 16px; letter-spacing: 0.08em; }
+            .badge { font-size: 8px; padding: 2px 8px; letter-spacing: 0.2em; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+            .stat-card { padding: 10px 12px; border-radius: 12px; }
+            .stat-card .value { font-size: 15px; }
+            .stat-card .label { font-size: 9px; margin-bottom: 4px; }
+            .stat-card .sub { font-size: 10px; }
+            .graph-section { padding: 10px; border-radius: 14px; }
+            .chart-container { height: 140px; }
+            .live-grid { grid-template-columns: 1fr 1fr; gap: 5px; }
+            .live-item { padding: 6px 8px; }
+            .live-item-value { font-size: 12px; }
+            .live-item-label { font-size: 8px; }
+            .device-section { padding: 10px; border-radius: 14px; }
+            .device-section h2 { font-size: 13px; }
+            .device-section .subtitle { font-size: 11px; }
+            .tabs { gap: 4px; }
+            .tab-btn { padding: 5px 10px; font-size: 11px; }
+            .refresh-info { font-size: 9px; }
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-row {
+                flex-direction: column;
+            }
+            .device-table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                margin: 0 -16px;
+                padding: 0 16px;
+            }
+            .device-table-wrapper::-webkit-scrollbar {
+                height: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="badge">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                    </svg>
+                    HomeLab Grid Monitor
+                </div>
+                <div>
+                    <h1 id="router-title">HomeLab Network Monitor <span id="router-name">Loading...</span></h1>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="router-info" id="uptime-info">
+                    Uptime: <strong id="router-uptime">-</strong>
+                </div>
+                <div class="router-info" id="model-info" style="display:none;">
+                    <span id="router-model"></span>
+                </div>
+                <div class="router-info" id="ssh-status" style="display:none;">
+                    Router SSH: <strong id="ssh-status-text" style="color:var(--accent-emerald)">Connected</strong>
+                    <button class="reconnect-btn" onclick="reconnectSSH()" title="Reconnect to router">↻</button>
+                </div>
+                <div class="router-info compact" style="cursor:pointer" onclick="exportCSV()" title="Export all data as CSV including services">
+                    📥 CSV Export
+                </div>
+                <div class="refresh-info" id="refresh-info">
+                    <span class="status-dot online" id="status-dot"></span>
+                    Refreshing every 3s
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid" id="stats-grid">
+            <div class="stat-card">
+                <div class="label">Download Speed</div>
+                <div class="value download" id="stat-download">0 Mbps</div>
+                <div class="sub" id="stat-download-bps">0 B/s</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Upload Speed</div>
+                <div class="value upload" id="stat-upload">0 Mbps</div>
+                <div class="sub" id="stat-upload-bps">0 B/s</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Total Downloaded</div>
+                <div class="value total" id="stat-total-dl">0 B</div>
+                <div class="sub">Session: <span id="stat-session-dl">0 B</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Total Uploaded</div>
+                <div class="value total" id="stat-total-ul">0 B</div>
+                <div class="sub">Session: <span id="stat-session-ul">0 B</span></div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Devices</div>
+                <div class="value devices" id="stat-devices">0</div>
+                <div class="sub"><span id="stat-devices-online">0</span> online</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">Blocked</div>
+                <div class="value blocked" id="stat-blocked">0</div>
+                <div class="sub">Avg DL: <span id="stat-avg-dl">0</span> KB/s</div>
+            </div>
+            <div class="stat-card" onclick="switchTab('ssh')" style="cursor:pointer" title="View SSH sessions">
+                <div class="label">SSH Sessions</div>
+                <div class="value ssh" id="stat-ssh">0</div>
+                <div class="sub" id="stat-ssh-ips">0 unique IPs</div>
+            </div>
+            <div class="stat-card" onclick="switchTab('ftp')" style="cursor:pointer" title="View FTP connections">
+                <div class="label">FTP Connections</div>
+                <div class="value ftp" id="stat-ftp">0</div>
+                <div class="sub" id="stat-ftp-ips">0 unique IPs</div>
+            </div>
+        </div>
+
+        <!-- Graph + Live Data in a side-by-side row -->
+        <div class="dashboard-row" id="dashboard-row">
+            <div class="graph-section dashboard-graph" id="graph-section">
+                <div class="graph-header">
+                    <div>
+                        <div class="graph-label">Traffic Graph</div>
+                        <h2>Bandwidth Usage</h2>
+                    </div>
+                    <div class="graph-legend">
+                        <div class="graph-legend-item">
+                            <span class="graph-legend-dot download"></span>
+                            Download
+                        </div>
+                        <div class="graph-legend-item">
+                            <span class="graph-legend-dot upload"></span>
+                            Upload
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="speedChart"></canvas>
+                </div>
+            </div>
+
+            <div class="graph-section dashboard-live" id="live-data-section">
+                <div class="graph-header">
+                    <div>
+                        <div class="graph-label">Real-Time Metrics</div>
+                        <h2>Live Data</h2>
+                    </div>
+                    <div class="live-timestamp" id="live-timestamp">
+                        <span class="status-dot online"></span>
+                        --
+                    </div>
+                </div>
+                <div class="live-grid">
+                    <div class="live-item">
+                        <div class="live-item-label">
+                            <span class="live-dot download"></span>
+                            Download Speed
+                        </div>
+                        <div class="live-item-value download" id="live-download">0 Mbps</div>
+                    </div>
+                    <div class="live-item">
+                        <div class="live-item-label">
+                            <span class="live-dot upload"></span>
+                            Upload Speed
+                        </div>
+                        <div class="live-item-value upload" id="live-upload">0 Mbps</div>
+                    </div>
+                    <div class="live-item">
+                        <div class="live-item-label">Peak Download</div>
+                        <div class="live-item-value download" id="live-peak-dl">0 Mbps</div>
+                        <div class="live-item-sub" id="live-peak-dl-at">--</div>
+                    </div>
+                    <div class="live-item">
+                        <div class="live-item-label">Peak Upload</div>
+                        <div class="live-item-value upload" id="live-peak-ul">0 Mbps</div>
+                        <div class="live-item-sub" id="live-peak-ul-at">--</div>
+                    </div>
+                    <div class="live-item">
+                        <div class="live-item-label">Session Download</div>
+                        <div class="live-item-value total" id="live-session-dl">0 B</div>
+                    </div>
+                    <div class="live-item">
+                        <div class="live-item-label">Session Upload</div>
+                        <div class="live-item-value total" id="live-session-ul">0 B</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="devices">📱 Connected Devices</button>
+            <button class="tab-btn" data-tab="blocked">🚫 Blocked Devices</button>
+            <button class="tab-btn" data-tab="ssh">🔌 SSH Sessions</button>
+            <button class="tab-btn" data-tab="ftp">📂 FTP Connections</button>
+            <button class="tab-btn" data-tab="stats">📊 Detailed Stats</button>
+            <button class="tab-btn" data-tab="settings">⚙️ Settings</button>
+        </div>
+
+        <!-- Tab: Devices -->
+        <div class="tab-content active" id="tab-devices">
+            <div class="device-section">
+                <div class="section-label">Connected Devices</div>
+                <h2>Client Roster &amp; Control Plane</h2>
+                <div class="subtitle">Devices on your network — click to nickname, block, or disconnect</div>
+                <div class="loading" id="devices-loading">
+                    <div class="spinner"></div> Loading devices...
+                </div>
+                <div id="devices-content" style="display:none;">
+                    <div class="device-table-wrapper">
+                        <table class="device-table">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Name</th>
+                                    <th>IP</th>
+                                    <th>MAC</th>
+                                    <th>Signal</th>
+                                    <th>Traffic</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="devices-tbody"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-state" id="devices-empty" style="display:none;">
+                        <div class="icon">📭</div>
+                        <p>No devices found. Make sure you're running this on your OpenWrt router.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Blocked -->
+        <div class="tab-content" id="tab-blocked">
+            <div class="device-section">
+                <div class="section-label">Access Control</div>
+                <h2>Blocked Devices</h2>
+                <div class="subtitle">Devices that have been blocked from accessing the network</div>
+                <div class="loading" id="blocked-loading">
+                    <div class="spinner"></div> Loading blocked devices...
+                </div>
+                <div id="blocked-content" style="display:none;">
+                    <div id="blocked-list"></div>
+                    <div class="empty-state" id="blocked-empty" style="display:none;">
+                        <div class="icon">🔓</div>
+                        <p>No devices are currently blocked.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: SSH Sessions -->
+        <div class="tab-content" id="tab-ssh">
+            <div class="device-section">
+                <div class="section-label">Secure Shell</div>
+                <h2>Active SSH Sessions</h2>
+                <div class="subtitle">Currently connected SSH users and their bandwidth usage</div>
+                <div class="loading" id="ssh-loading">
+                    <div class="spinner"></div> Loading SSH sessions...
+                </div>
+                <div id="ssh-content" style="display:none;">
+                    <div class="device-table-wrapper">
+                        <table class="device-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Source IP</th>
+                                    <th>TTY</th>
+                                    <th>PID</th>
+                                    <th>State</th>
+                                    <th>Data Sent</th>
+                                    <th>Data Received</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ssh-tbody"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-state" id="ssh-empty" style="display:none;">
+                        <div class="icon">🔌</div>
+                        <p>No active SSH sessions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: FTP Connections -->
+        <div class="tab-content" id="tab-ftp">
+            <div class="device-section">
+                <div class="section-label">File Transfer</div>
+                <h2>Active FTP Connections</h2>
+                <div class="subtitle">Current FTP control and data connections</div>
+                <div class="loading" id="ftp-loading">
+                    <div class="spinner"></div> Loading FTP connections...
+                </div>
+                <div id="ftp-content" style="display:none;">
+                    <div class="device-table-wrapper">
+                        <table class="device-table">
+                            <thead>
+                                <tr>
+                                    <th>Source IP</th>
+                                    <th>Port</th>
+                                    <th>Type</th>
+                                    <th>PID</th>
+                                    <th>State</th>
+                                    <th>Data Sent</th>
+                                    <th>Data Received</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ftp-tbody"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-state" id="ftp-empty" style="display:none;">
+                        <div class="icon">📂</div>
+                        <p>No active FTP connections.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Settings -->
+        <div class="tab-content" id="tab-settings">
+            <div class="device-section">
+                <div class="section-label">Configuration</div>
+                <h2>Router Connection Settings</h2>
+                <div class="subtitle">SSH credentials used to connect to your OpenWrt router</div>
+                <div class="loading" id="settings-loading">
+                    <div class="spinner"></div> Loading settings...
+                </div>
+                <div id="settings-content" style="display:none;">
+                    <div class="settings-form" style="max-width:500px">
+                        <div class="settings-field">
+                            <label for="settings-host">Router Host</label>
+                            <input type="text" id="settings-host" class="settings-input" placeholder="192.168.1.1">
+                        </div>
+                        <div class="settings-field">
+                            <label for="settings-user">SSH Username</label>
+                            <input type="text" id="settings-user" class="settings-input" placeholder="root">
+                        </div>
+                        <div class="settings-field">
+                            <label for="settings-password">SSH Password</label>
+                            <input type="password" id="settings-password" class="settings-input" placeholder="Enter password">
+                            <span class="settings-hint">Leave as-is to keep current password</span>
+                        </div>
+                        <div class="settings-field">
+                            <label for="settings-port">SSH Port</label>
+                            <input type="number" id="settings-port" class="settings-input" placeholder="22" min="1" max="65535">
+                        </div>
+                        <div class="settings-status" id="settings-status"></div>
+                        <div class="settings-actions">
+                            <button class="btn btn-primary" onclick="saveSettings()">💾 Save &amp; Reconnect</button>
+                            <button class="btn btn-ghost" onclick="loadSettings()">↻ Reload</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Detailed Stats -->
+        <div class="tab-content" id="tab-stats">
+            <div class="device-section">
+                <div class="section-label">Telemetry</div>
+                <h2>Router &amp; Usage Statistics</h2>
+                <div class="subtitle">Detailed information about your router and data usage</div>
+                <div class="loading" id="stats-loading">
+                    <div class="spinner"></div> Loading stats...
+                </div>
+                <div id="stats-content" style="display:none;">
+                    <table class="device-table">
+                        <thead>
+                            <tr>
+                                <th>Statistic</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stats-tbody"></tbody>
+                    </table>
+                    <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
+                        <button class="btn btn-danger" onclick="resetStats()">🔄 Reset Statistics</button>
+                        <button class="btn btn-ghost" onclick="location.reload()">🔁 Refresh Page</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script>
+        // ========== State ==========
+        const state = {
+            speedHistory: [],
+            devices: [],
+            blocked: [],
+            nicknames: {},
+            chart: null,
+        };
+
+        // ========== Chart Initialization ==========
+        function initChart() {
+            const ctx = document.getElementById('speedChart').getContext('2d');
+            state.chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [
+                        {
+                            label: 'Download',
+                            data: [],
+                            borderColor: '#22d3ee',
+                            backgroundColor: 'rgba(34, 211, 238, 0.08)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            borderWidth: 2.5,
+                        },
+                        {
+                            label: 'Upload',
+                            data: [],
+                            borderColor: '#34d399',
+                            backgroundColor: 'rgba(52, 211, 153, 0.08)',
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 0,
+                            borderWidth: 2.5,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 300 },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            backgroundColor: 'rgba(6, 11, 10, 0.95)',
+                            titleColor: '#f8fafc',
+                            bodyColor: '#94a3b8',
+                            borderColor: 'rgba(34, 211, 238, 0.16)',
+                            borderWidth: 1,
+                            padding: 12,
+                            cornerRadius: 18,
+                            callbacks: {
+                                label: function(ctx) {
+                                    let val = ctx.parsed.y;
+                                    if (val >= 1000000) return ctx.dataset.label + ': ' + (val / 1000000).toFixed(2) + ' Mbps';
+                                    if (val >= 1000) return ctx.dataset.label + ': ' + (val / 1000).toFixed(1) + ' Kbps';
+                                    return ctx.dataset.label + ': ' + val.toFixed(1) + ' bps';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            grid: { color: 'rgba(255,255,255,0.04)', drawBorder: false },
+                            ticks: {
+                                color: 'rgba(148, 163, 184, 0.6)',
+                                font: { size: 12 },
+                                maxTicksLimit: 8,
+                                maxRotation: 0,
+                                callback: function(val, idx) {
+                                    const labels = this.getLabelForValue(val);
+                                    if (labels && typeof labels === 'string' && labels.includes(':')) {
+                                        return labels.split(':')[1] || labels;
+                                    }
+                                    return labels;
+                                }
+                            }
+                        },
+                        y: {
+                            display: true,
+                            grid: { color: 'rgba(255,255,255,0.04)', drawBorder: false },
+                            ticks: {
+                                color: 'rgba(148, 163, 184, 0.6)',
+                                font: { size: 12 },
+                                callback: function(val) {
+                                    if (val >= 1000000) return (val / 1000000).toFixed(1) + ' Mbps';
+                                    if (val >= 1000) return (val / 1000).toFixed(0) + ' Kbps';
+                                    return val + ' bps';
+                                }
+                            },
+                            beginAtZero: true
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    }
+                }
+            });
+        }
+
+        // ========== Utility Functions ==========
+        function formatBytes(bytes) {
+            if (!bytes || bytes === 0) return '0 B';
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            if (bytes < 1073741824) return (bytes / 1048576).toFixed(1) + ' MB';
+            return (bytes / 1073741824).toFixed(2) + ' GB';
+        }
+
+        function formatSpeed(bps) {
+            if (!bps || bps <= 0) return '0 bps';
+            if (bps < 1000) return bps.toFixed(0) + ' bps';
+            if (bps < 1000000) return (bps / 1000).toFixed(1) + ' Kbps';
+            return (bps / 1000000).toFixed(2) + ' Mbps';
+        }
+
+        function formatUptime(seconds) {
+            if (!seconds) return '-';
+            const days = Math.floor(seconds / 86400);
+            const hours = Math.floor((seconds % 86400) / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            let parts = [];
+            if (days > 0) parts.push(days + 'd');
+            if (hours > 0) parts.push(hours + 'h');
+            parts.push(mins + 'm');
+            return parts.join(' ');
+        }
+
+        function signalStrength(signal) {
+            if (signal === 0) return { text: 'N/A', color: '#64748b' };
+            if (signal >= -50) return { text: 'Excellent', color: '#22d3ee' };
+            if (signal >= -65) return { text: 'Good', color: '#34d399' };
+            if (signal >= -80) return { text: 'Fair', color: '#f59e0b' };
+            return { text: 'Weak', color: '#f87171' };
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'toast ' + type;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function getSignalColor(signal) { return signalStrength(signal).color; }
+
+        // ========== Tab Switcher ==========
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            const btn = document.querySelector(`.tab-btn[data-tab="${tabName}"]`);
+            if (btn) btn.classList.add('active');
+            document.getElementById('tab-' + tabName).classList.add('active');
+            activeTab = tabName;
+            if (tabName === 'settings') {
+                loadSettings();
+            } else if (tabName === 'ssh') {
+                loadSSHDetail();
+            } else if (tabName === 'ftp') {
+                loadFTPDetail();
+            }
+        }
+
+        // ========== API Calls ==========
+        async function fetchJSON(url) {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            return res.json();
+        }
+
+        async function postJSON(url, body = {}) {
+            const res = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body),
+            });
+            return res.json();
+        }
+
+        // ========== Live Data State ==========
+        const liveState = {
+            peakDl: { value: 0, time: null },
+            peakUl: { value: 0, time: null },
+        };
+
+        // ========== Load Speed ==========
+        async function loadSpeed() {
+            try {
+                const data = await fetchJSON('/api/speed');
+                document.getElementById('stat-download').textContent = formatSpeed(data.download_bps);
+                document.getElementById('stat-upload').textContent = formatSpeed(data.upload_bps);
+                document.getElementById('stat-download-bps').textContent = formatBytes(data.download_speed) + '/s';
+                document.getElementById('stat-upload-bps').textContent = formatBytes(data.upload_speed) + '/s';
+
+                document.getElementById('live-download').textContent = formatSpeed(data.download_bps);
+                document.getElementById('live-upload').textContent = formatSpeed(data.upload_bps);
+
+                const now = new Date();
+                const timeStr = now.toLocaleTimeString();
+                if (data.download_bps > liveState.peakDl.value) {
+                    liveState.peakDl = { value: data.download_bps, time: timeStr };
+                    document.getElementById('live-peak-dl').textContent = formatSpeed(data.download_bps);
+                    document.getElementById('live-peak-dl-at').textContent = 'at ' + timeStr;
+                }
+                if (data.upload_bps > liveState.peakUl.value) {
+                    liveState.peakUl = { value: data.upload_bps, time: timeStr };
+                    document.getElementById('live-peak-ul').textContent = formatSpeed(data.upload_bps);
+                    document.getElementById('live-peak-ul-at').textContent = 'at ' + timeStr;
+                }
+
+                document.querySelector('#live-timestamp').innerHTML =
+                    `<span class="status-dot online"></span> Last sample: ${timeStr}`;
+            } catch (e) {
+                console.error('Speed fetch error:', e);
+            }
+        }
+
+        // ========== Load History ==========
+        async function loadHistory() {
+            try {
+                const data = await fetchJSON('/api/history');
+                state.speedHistory = data.history || [];
+                updateChart();
+            } catch (e) {
+                console.error('History fetch error:', e);
+            }
+        }
+
+        function updateChart() {
+            if (!state.chart) return;
+            const history = state.speedHistory;
+            if (!history.length) return;
+
+            const labels = history.map(h => {
+                const d = new Date(h.timestamp);
+                return d.toLocaleTimeString();
+            });
+            const dlData = history.map(h => h.download_speed || 0);
+            const ulData = history.map(h => h.upload_speed || 0);
+
+            state.chart.data.labels = labels;
+            state.chart.data.datasets[0].data = dlData;
+            state.chart.data.datasets[1].data = ulData;
+            state.chart.update('none');
+        }
+
+        // ========== Load Devices ==========
+        async function loadDevices() {
+            try {
+                const data = await fetchJSON('/api/devices');
+                state.devices = data.devices || [];
+
+                document.getElementById('devices-loading').style.display = 'none';
+                const content = document.getElementById('devices-content');
+                const empty = document.getElementById('devices-empty');
+
+                document.getElementById('stat-devices').textContent = data.total || 0;
+                document.getElementById('stat-devices-online').textContent = data.online || 0;
+
+                if (state.devices.length === 0) {
+                    content.style.display = 'none';
+                    empty.style.display = 'block';
+                    return;
+                }
+
+                content.style.display = 'block';
+                empty.style.display = 'none';
+                renderDevices();
+            } catch (e) {
+                console.error('Devices fetch error:', e);
+                document.getElementById('devices-loading').innerHTML = '❌ Failed to load devices. Make sure you are running this on your OpenWrt router.';
+            }
+        }
+
+        function renderDevices() {
+            const tbody = document.getElementById('devices-tbody');
+            tbody.innerHTML = '';
+
+            state.devices.forEach(dev => {
+                const sig = signalStrength(dev.signal);
+                const tr = document.createElement('tr');
+
+                const statusCell = document.createElement('td');
+                statusCell.innerHTML = `<span class="device-status">
+                    <span class="dot ${dev.online ? 'online' : 'offline'}"></span>
+                    ${dev.online ? 'Online' : 'Offline'}
+                </span>`;
+
+                const nameCell = document.createElement('td');
+                let nameHtml = `<span class="device-name">`;
+                if (dev.nickname) {
+                    nameHtml += `<span class="nickname">${escapeHtml(dev.nickname)}</span>`;
+                    if (dev.hostname) nameHtml += ` <span class="hostname">(${escapeHtml(dev.hostname)})</span>`;
+                } else if (dev.hostname) {
+                    nameHtml += `${escapeHtml(dev.hostname)}`;
+                } else {
+                    nameHtml += `<span style="color:var(--text-muted)">Unknown Device</span>`;
+                }
+                nameHtml += `</span>`;
+                nameCell.innerHTML = nameHtml;
+
+                const ipCell = document.createElement('td');
+                ipCell.className = 'device-ip';
+                ipCell.textContent = dev.ip || '-';
+
+                const macCell = document.createElement('td');
+                macCell.className = 'device-mac';
+                macCell.textContent = dev.mac;
+
+                const signalCell = document.createElement('td');
+                signalCell.className = 'device-signal';
+                signalCell.innerHTML = dev.signal ? `<strong style="color:${sig.color}">${sig.text}</strong> (${dev.signal} dBm)` : '-';
+
+                const trafficCell = document.createElement('td');
+                trafficCell.style.cssText = 'font-size:11px; color:var(--text-muted)';
+                trafficCell.textContent = `⬇ ${formatBytes(dev.rx_bytes)} ⬆ ${formatBytes(dev.tx_bytes)}`;
+
+                const actionsCell = document.createElement('td');
+                actionsCell.className = 'device-actions';
+
+                const nicknameForm = document.createElement('div');
+                nicknameForm.className = 'nickname-form';
+                nicknameForm.innerHTML = `
+                    <input class="nickname-input" type="text" value="${escapeHtml(dev.nickname || '')}"
+                        placeholder="Nickname..." id="nick-${dev.ip || dev.mac}"
+                        onkeydown="if(event.key==='Enter') setNickname('${dev.ip || dev.mac}')"
+                        onblur="setNickname('${dev.ip || dev.mac}')">
+                `;
+                actionsCell.appendChild(nicknameForm);
+
+                if (dev.blocked) {
+                    const unblockBtn = document.createElement('button');
+                    unblockBtn.className = 'btn btn-success btn-sm';
+                    unblockBtn.innerHTML = '🔓 Unblock';
+                    unblockBtn.onclick = () => toggleBlock(dev.mac, false);
+                    actionsCell.appendChild(unblockBtn);
+                } else {
+                    const blockBtn = document.createElement('button');
+                    blockBtn.className = 'btn btn-danger btn-sm';
+                    blockBtn.innerHTML = '🚫 Block';
+                    blockBtn.onclick = () => toggleBlock(dev.mac, true);
+                    actionsCell.appendChild(blockBtn);
+                }
+
+                if (dev.online && dev.source === 'wireless') {
+                    const disconnectBtn = document.createElement('button');
+                    disconnectBtn.className = 'btn btn-warning btn-sm';
+                    disconnectBtn.innerHTML = '🔌 Disconnect';
+                    disconnectBtn.onclick = () => disconnectDevice(dev.mac);
+                    actionsCell.appendChild(disconnectBtn);
+                }
+
+                tr.appendChild(statusCell);
+                tr.appendChild(nameCell);
+                tr.appendChild(ipCell);
+                tr.appendChild(macCell);
+                tr.appendChild(signalCell);
+                tr.appendChild(trafficCell);
+                tr.appendChild(actionsCell);
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // ========== Load Blocked ==========
+        async function loadBlocked() {
+            try {
+                const data = await fetchJSON('/api/blocked');
+                state.blocked = data.blocked || [];
+
+                document.getElementById('blocked-loading').style.display = 'none';
+                const content = document.getElementById('blocked-content');
+                const empty = document.getElementById('blocked-empty');
+
+                document.getElementById('stat-blocked').textContent = state.blocked.length;
+
+                if (state.blocked.length === 0) {
+                    content.style.display = 'none';
+                    empty.style.display = 'block';
+                    return;
+                }
+
+                content.style.display = 'block';
+                empty.style.display = 'none';
+
+                const list = document.getElementById('blocked-list');
+                list.innerHTML = '';
+                state.blocked.forEach(dev => {
+                    const item = document.createElement('div');
+                    item.className = 'blocked-item';
+                    item.innerHTML = `
+                        <div>
+                            <div class="blocked-mac">${dev.mac}</div>
+                            <div style="font-size:12px;color:var(--text-muted)">
+                                ${dev.nickname ? dev.nickname : 'No nickname'}
+                                ${dev.in_iptables ? '• Active in firewall' : ''}
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-sm" onclick="toggleBlock('${dev.mac}', false)">
+                            🔓 Unblock
+                        </button>
+                    `;
+                    list.appendChild(item);
+                });
+            } catch (e) {
+                console.error('Blocked fetch error:', e);
+                document.getElementById('blocked-loading').innerHTML = '❌ Failed to load blocked devices.';
+            }
+        }
+
+        // ========== Device Actions ==========
+        async function setNickname(ip) {
+            const input = document.getElementById('nick-' + ip);
+            if (!input) return;
+            const nickname = input.value.trim();
+            try {
+                const res = await postJSON('/api/nickname', { ip, nickname });
+                if (res.success) {
+                    showToast(nickname ? `Nickname set to "${nickname}"` : 'Nickname removed', 'success');
+                }
+            } catch (e) {
+                showToast('Failed to set nickname', 'error');
+            }
+        }
+
+        async function toggleBlock(mac, block) {
+            try {
+                const endpoint = block ? `/api/block/${mac}` : `/api/unblock/${mac}`;
+                const res = await postJSON(endpoint);
+                if (res.success) {
+                    showToast(res.message, 'success');
+                    loadDevices();
+                    loadBlocked();
+                } else {
+                    showToast(res.message || 'Failed', 'error');
+                }
+            } catch (e) {
+                showToast('Error: ' + e.message, 'error');
+            }
+        }
+
+        async function disconnectDevice(mac) {
+            if (!confirm('Disconnect this device from the network?')) return;
+            try {
+                const res = await postJSON(`/api/disconnect/${mac}`);
+                if (res.success) {
+                    showToast('Device disconnected', 'success');
+                    setTimeout(loadDevices, 2000);
+                } else {
+                    showToast(res.message || 'Failed to disconnect', 'error');
+                }
+            } catch (e) {
+                showToast('Error: ' + e.message, 'error');
+            }
+        }
+
+        // ========== Load Services (SSH & FTP summary) ==========
+        async function loadServices() {
+            try {
+                const data = await fetchJSON('/api/services');
+                const ssh = data.ssh || {};
+                const ftp = data.ftp || {};
+
+                document.getElementById('stat-ssh').textContent = ssh.active_connections || 0;
+                document.getElementById('stat-ssh-ips').textContent = (ssh.unique_ips || 0) + ' unique IPs';
+
+                document.getElementById('stat-ftp').textContent = ftp.active_connections || 0;
+                document.getElementById('stat-ftp-ips').textContent = (ftp.unique_ips || 0) + ' unique IPs';
+            } catch (e) {
+                console.error('Services fetch error:', e);
+            }
+        }
+
+        // ========== Load SSH Sessions Detail ==========
+        async function loadSSHDetail() {
+            try {
+                const data = await fetchJSON('/api/service/ssh');
+                const connections = data.connections || [];
+
+                document.getElementById('ssh-loading').style.display = 'none';
+                const content = document.getElementById('ssh-content');
+                const empty = document.getElementById('ssh-empty');
+
+                if (connections.length === 0) {
+                    content.style.display = 'none';
+                    empty.style.display = 'block';
+                    return;
+                }
+
+                content.style.display = 'block';
+                empty.style.display = 'none';
+
+                const tbody = document.getElementById('ssh-tbody');
+                tbody.innerHTML = '';
+
+                connections.forEach(c => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td><span class="device-name"><span class="nickname">${escapeHtml(c.username || 'Unknown')}</span></span></td>
+                        <td class="device-ip">${c.peer_ip || '-'}</td>
+                        <td style="font-size:12px;color:var(--text-muted)">${c.tty || '-'}</td>
+                        <td style="font-size:12px;color:var(--text-muted)">${c.pid || '-'}</td>
+                        <td><span class="device-status"><span class="dot online"></span> ${c.state || 'ESTAB'}</span></td>
+                        <td style="font-family:'SF Mono',monospace;font-size:12px;color:var(--accent-cyan)">${formatBytes(c.bytes_sent || 0)}</td>
+                        <td style="font-family:'SF Mono',monospace;font-size:12px;color:var(--accent-emerald)">${formatBytes(c.bytes_recv || 0)}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (e) {
+                console.error('SSH detail fetch error:', e);
+                document.getElementById('ssh-loading').innerHTML = '❌ Failed to load SSH session details.';
+            }
+        }
+
+        // ========== Load FTP Connections Detail ==========
+        async function loadFTPDetail() {
+            try {
+                const data = await fetchJSON('/api/service/ftp');
+                const connections = data.connections || [];
+
+                document.getElementById('ftp-loading').style.display = 'none';
+                const content = document.getElementById('ftp-content');
+                const empty = document.getElementById('ftp-empty');
+
+                if (connections.length === 0) {
+                    content.style.display = 'none';
+                    empty.style.display = 'block';
+                    return;
+                }
+
+                content.style.display = 'block';
+                empty.style.display = 'none';
+
+                const tbody = document.getElementById('ftp-tbody');
+                tbody.innerHTML = '';
+
+                connections.forEach(c => {
+                    const isData = c.is_data || false;
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="device-ip">${c.peer_ip || '-'}</td>
+                        <td style="font-size:12px;color:var(--text-muted)">${c.local_port || (isData ? '20' : '21')}</td>
+                        <td><span class="device-status">
+                            <span class="dot online" style="${isData ? 'background:var(--accent-amber);box-shadow:0 0 8px rgba(245,158,11,0.5)' : 'background:var(--accent-blue);box-shadow:0 0 8px rgba(96,165,250,0.5)'}"></span>
+                            ${isData ? 'Data' : 'Control'}
+                        </span></td>
+                        <td style="font-size:12px;color:var(--text-muted)">${c.pid || '-'}</td>
+                        <td><span class="device-status"><span class="dot online"></span> ${c.state || 'ESTAB'}</span></td>
+                        <td style="font-family:'SF Mono',monospace;font-size:12px;color:var(--accent-cyan)">${formatBytes(c.bytes_sent || 0)}</td>
+                        <td style="font-family:'SF Mono',monospace;font-size:12px;color:var(--accent-emerald)">${formatBytes(c.bytes_recv || 0)}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (e) {
+                console.error('FTP detail fetch error:', e);
+                document.getElementById('ftp-loading').innerHTML = '❌ Failed to load FTP connection details.';
+            }
+        }
+
+        // ========== Load Stats ==========
+        async function loadStats() {
+            try {
+                const data = await fetchJSON('/api/stats');
+                document.getElementById('stat-total-dl').textContent = data.total_download_human || '0 B';
+                document.getElementById('stat-total-ul').textContent = data.total_upload_human || '0 B';
+                document.getElementById('stat-session-dl').textContent = data.session_download_human || '0 B';
+                document.getElementById('stat-session-ul').textContent = data.session_upload_human || '0 B';
+
+                document.getElementById('live-session-dl').textContent = data.session_download_human || '0 B';
+                document.getElementById('live-session-ul').textContent = data.session_upload_human || '0 B';
+                document.getElementById('stat-avg-dl').textContent = data.average_download_kbps || '0';
+
+                document.getElementById('stats-loading').style.display = 'none';
+                document.getElementById('stats-content').style.display = 'block';
+
+                const tbody = document.getElementById('stats-tbody');
+                tbody.innerHTML = '';
+
+                const statsItems = [
+                    ['Total Downloaded', data.total_download_human],
+                    ['Total Uploaded', data.total_upload_human],
+                    ['Session Downloaded', data.session_download_human],
+                    ['Session Uploaded', data.session_upload_human],
+                    ['Average Download Speed', data.average_download_kbps + ' KB/s'],
+                    ['Average Upload Speed', data.average_upload_kbps + ' KB/s'],
+                    ['Last Reset', data.last_reset ? new Date(data.last_reset).toLocaleString() : '-'],
+                    ['Last Updated', data.last_updated ? new Date(data.last_updated).toLocaleString() : '-'],
+                    ['Devices Known', data.total_devices_known],
+                    ['Devices Online', data.total_devices_online],
+                    ['Blocked Devices', data.blocked_devices_count],
+                ];
+
+                if (data.router) {
+                    const r = data.router;
+                    statsItems.push(['Router Hostname', r.hostname || '-']);
+                    statsItems.push(['Router Model', r.model || '-']);
+                    statsItems.push(['Uptime', formatUptime(r.uptime)]);
+                    statsItems.push(['Load Average', r.load_average]);
+                    if (r.memory_total) {
+                        statsItems.push(['Total Memory', formatBytes(r.memory_total)]);
+                        statsItems.push(['Available Memory', formatBytes(r.memory_available)]);
+                    }
+                    statsItems.push(['Wireless Interfaces', (r.wireless_interfaces || []).join(', ') || 'None']);
+                    statsItems.push(['WAN Interface', r.wan_interface || '-']);
+                    statsItems.push(['Has ubus', r.tools && r.tools.ubus ? '✅ Yes' : '❌ No']);
+                    statsItems.push(['Has iptables', r.tools && r.tools.iptables ? '✅ Yes' : '❌ No']);
+                    statsItems.push(['App Uptime', formatUptime(r.app_uptime)]);
+                    statsItems.push(['Speed History Points', r.speed_history_points || 0]);
+                }
+
+                statsItems.forEach(([label, value]) => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td style="font-weight:500;color:var(--text-secondary)">${label}</td>
+                        <td style="font-family:'SF Mono','Fira Code',monospace;font-size:13px">${value !== undefined && value !== null ? value : '-'}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (e) {
+                console.error('Stats fetch error:', e);
+                document.getElementById('stats-loading').innerHTML = '❌ Failed to load stats.';
+            }
+        }
+
+        async function resetStats() {
+            if (!confirm('Reset all cumulative statistics? This cannot be undone.')) return;
+            try {
+                const res = await postJSON('/api/reset-stats');
+                if (res.success) {
+                    showToast('Statistics reset', 'success');
+                    loadStats();
+                }
+            } catch (e) {
+                showToast('Failed to reset stats', 'error');
+            }
+        }
+
+        // ========== CSV Export ==========
+        async function exportCSV() {
+            try {
+                showToast('Downloading CSV export...', 'info');
+                const response = await fetch('/api/export/csv');
+                if (!response.ok) throw new Error('Failed to export');
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'homelab-monitor-' + new Date().toISOString().slice(0,19).replace(/[:-]/g, '') + '.csv';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+                showToast('✅ CSV export downloaded', 'success');
+            } catch (e) {
+                showToast('❌ Export failed: ' + e.message, 'error');
+            }
+        }
+
+        // ========== Settings ==========
+        async function loadSettings() {
+            try {
+                const data = await fetchJSON('/api/settings');
+                document.getElementById('settings-loading').style.display = 'none';
+                document.getElementById('settings-content').style.display = 'block';
+
+                document.getElementById('settings-host').value = data.router_host || '';
+                document.getElementById('settings-user').value = data.router_user || '';
+                document.getElementById('settings-password').value = data.router_password || '';
+                document.getElementById('settings-port').value = data.router_port || 22;
+
+                const statusEl = document.getElementById('settings-status');
+                if (data.ssh_connected) {
+                    statusEl.innerHTML = '<span class="status-dot online" style="display:inline-block;width:10px;height:10px;margin-right:6px"></span> SSH <strong>Connected</strong> to ' + escapeHtml(data.router_host);
+                    statusEl.className = 'settings-status settings-status-ok';
+                } else {
+                    statusEl.innerHTML = '<span style="color:var(--accent-red);margin-right:6px">●</span> SSH <strong>Disconnected</strong>';
+                    statusEl.className = 'settings-status settings-status-err';
+                }
+            } catch (e) {
+                document.getElementById('settings-loading').innerHTML = '❌ Failed to load settings.';
+                console.error('Settings fetch error:', e);
+            }
+        }
+
+        async function saveSettings() {
+            const host = document.getElementById('settings-host').value.trim();
+            const user = document.getElementById('settings-user').value.trim();
+            const password = document.getElementById('settings-password').value;
+            const port = parseInt(document.getElementById('settings-port').value) || 22;
+
+            if (!host) { showToast('Router host is required', 'error'); return; }
+            if (!user) { showToast('SSH username is required', 'error'); return; }
+            if (port < 1 || port > 65535) { showToast('Port must be between 1 and 65535', 'error'); return; }
+
+            const statusEl = document.getElementById('settings-status');
+            statusEl.innerHTML = '<div class="spinner" style="width:16px;height:16px;margin-right:8px;display:inline-block"></div> Saving and reconnecting...';
+            statusEl.className = 'settings-status settings-status-info';
+
+            try {
+                const res = await postJSON('/api/settings', {
+                    router_host: host,
+                    router_user: user,
+                    router_password: password,
+                    router_port: port,
+                });
+                if (res.success) {
+                    showToast(res.message, res.ssh_connected ? 'success' : 'info');
+                    await loadSettings();
+                    refreshAll();
+                } else {
+                    statusEl.textContent = res.error || 'Failed to save settings';
+                    statusEl.className = 'settings-status settings-status-err';
+                    showToast(res.error || 'Failed to save settings', 'error');
+                }
+            } catch (e) {
+                statusEl.textContent = 'Error: ' + e.message;
+                statusEl.className = 'settings-status settings-status-err';
+                showToast('Error saving settings: ' + e.message, 'error');
+            }
+        }
+
+        async function reconnectSSH() {
+            try {
+                showToast('Reconnecting to router...', 'info');
+                const res = await postJSON('/api/reconnect');
+                if (res.success) {
+                    showToast('✅ Reconnected to router', 'success');
+                } else {
+                    showToast('❌ Failed to reconnect: ' + (res.message || 'SSH error'), 'error');
+                }
+            } catch (e) {
+                showToast('Error reconnecting: ' + e.message, 'error');
+            }
+        }
+
+        // ========== Load Router Info ==========
+        async function loadRouterInfo() {
+            try {
+                const data = await fetchJSON('/api/info');
+                document.getElementById('router-name').textContent = data.hostname || 'OpenWrt';
+
+                const modelEl = document.getElementById('model-info');
+                const modelText = document.getElementById('router-model');
+                if (data.model) {
+                    modelEl.style.display = 'flex';
+                    modelText.textContent = data.model;
+                }
+
+                document.getElementById('router-uptime').textContent = formatUptime(data.uptime);
+
+                const sshEl = document.getElementById('ssh-status');
+                const sshText = document.getElementById('ssh-status-text');
+                if (data.ssh_connected) {
+                    sshEl.style.display = 'flex';
+                    sshText.textContent = 'Connected';
+                    sshText.style.color = 'var(--accent-emerald)';
+                } else {
+                    sshEl.style.display = 'flex';
+                    sshText.textContent = 'Disconnected';
+                    sshText.style.color = 'var(--accent-red)';
+                }
+            } catch (e) {
+                console.error('Info fetch error:', e);
+            }
+        }
+
+        // ========== Tab Switching ==========
+        let activeTab = 'devices';
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                const tabName = this.dataset.tab;
+                document.getElementById('tab-' + tabName).classList.add('active');
+                activeTab = tabName;
+
+                if (tabName === 'settings') {
+                    loadSettings();
+                } else if (tabName === 'ssh') {
+                    loadSSHDetail();
+                } else if (tabName === 'ftp') {
+                    loadFTPDetail();
+                }
+            });
+        });
+
+        // ========== Main Loop ==========
+        async function refreshAll() {
+            await Promise.all([
+                loadSpeed(),
+                loadDevices(),
+                loadBlocked(),
+                loadStats(),
+                loadHistory(),
+                loadRouterInfo(),
+                loadServices(),
+            ]);
+
+            // Also auto-refresh SSH/FTP detail views when their tabs are visible
+            if (activeTab === 'ssh') {
+                loadSSHDetail();
+            } else if (activeTab === 'ftp') {
+                loadFTPDetail();
+            }
+        }
+
+        // ========== Init ==========
+        document.addEventListener('DOMContentLoaded', function() {
+            initChart();
+
+            // Initial load
+            refreshAll();
+
+            // Refresh every 3 seconds
+            setInterval(refreshAll, 3000);
+
+            let count = 0;
+            setInterval(() => {
+                count++;
+                const dots = '.'.repeat((count % 3) + 1);
+                document.getElementById('refresh-info').innerHTML = `<span class="status-dot online"></span> Refreshing every 3s${dots}`;
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

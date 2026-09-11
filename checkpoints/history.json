@@ -1,0 +1,129 @@
+{
+  "train": [
+    {
+      "loss": 0.7082452774047852,
+      "accuracy": 0.2
+    },
+    {
+      "loss": 0.5647240400314331,
+      "accuracy": 1.0
+    },
+    {
+      "loss": 0.42736348509788513,
+      "accuracy": 1.0
+    },
+    {
+      "loss": 0.29556257128715513,
+      "accuracy": 1.0
+    },
+    {
+      "loss": 0.21502941548824311,
+      "accuracy": 1.0
+    }
+  ],
+  "val": [
+    {
+      "loss": 0.707312822341919,
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "confusion_matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "roc_auc": NaN
+    },
+    {
+      "loss": 0.745907187461853,
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "confusion_matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "roc_auc": NaN
+    },
+    {
+      "loss": 0.8138840198516846,
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "confusion_matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "roc_auc": NaN
+    },
+    {
+      "loss": 0.9294289350509644,
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "confusion_matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "roc_auc": NaN
+    },
+    {
+      "loss": 1.078874111175537,
+      "accuracy": 0.0,
+      "precision": 0.0,
+      "recall": 0.0,
+      "confusion_matrix": [
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "roc_auc": NaN
+    }
+  ],
+  "final_val": {
+    "loss": 0.707312822341919,
+    "accuracy": 0.0,
+    "precision": 0.0,
+    "recall": 0.0,
+    "confusion_matrix": [
+      [
+        0,
+        1
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "roc_auc": NaN,
+    "calibration_temperature": 1.5062841176986694
+  }
+}

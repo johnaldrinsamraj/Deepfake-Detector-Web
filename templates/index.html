@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audio Deepfake Detector</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <div class="badge">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                        <line x1="12" y1="19" x2="12" y2="23"/>
+                        <line x1="8" y1="23" x2="16" y2="23"/>
+                    </svg>
+                    Deepfake Detection System
+                </div>
+                <h1>Audio Deepfake Detector
+                    <span>Synthetic Media & Voice Clone Detection for Government Communications</span>
+                </h1>
+            </div>
+            <div class="header-right">
+                <div class="router-info" id="model-status">
+                    Model: <strong id="model-status-text">Checking...</strong>
+                </div>
+                <div class="router-info compact">
+                    Device: <strong id="device-info">-</strong>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Grid -->
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+            <div class="stats-grid" style="flex:1; margin-bottom:0;">
+                <div class="stat-card">
+                    <div class="label">Verdict</div>
+                    <div class="value devices" id="stat-verdict">—</div>
+                    <div class="sub" id="stat-verdict-sub">Upload audio to analyze</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Confidence</div>
+                    <div class="value download" id="stat-confidence">0%</div>
+                    <div class="sub">Calibrated score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">P(Real)</div>
+                    <div class="value upload" id="stat-preal">—</div>
+                    <div class="sub">Authentic probability</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">P(Fake)</div>
+                    <div class="value blocked" id="stat-pfake">—</div>
+                    <div class="sub">Synthetic probability</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="refreshResults()" title="Re-analyze current file" style="margin-left:12px; white-space:nowrap; height:fit-content; align-self:center;">
+                ↻ Refresh
+            </button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="analyze" onclick="switchTab('analyze')">🔍 Analyze Audio</button>
+            <button class="tab-btn" data-tab="demo" onclick="switchTab('demo')">🎬 Demo Reel</button>
+            <button class="tab-btn" data-tab="about" onclick="switchTab('about')">ℹ️ About</button>
+        </div>
+
+        <!-- Tab: Analyze Audio -->
+        <div class="tab-content active" id="tab-analyze">
+            <div class="device-section">
+                <div class="section-label">Upload & Detection</div>
+                <h2>Analyze Audio</h2>
+                <div class="subtitle">Drag & drop or click to upload any audio file — all formats accepted and auto-converted</div>
+
+                <!-- Upload Area -->
+                <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+                    <input type="file" id="file-input" accept="audio/*" style="display:none" onchange="handleFileUpload(event)">
+                    <div class="upload-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="48" height="48">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                    </div>
+                    <div class="upload-text">Drag & drop audio here or <span class="upload-link">click to browse</span></div>
+                    <div class="upload-hint">Supported: WAV, MP3, M4A, FLAC, OGG, OPUS — Max 50MB</div>
+                </div>
+
+                <!-- Audio Player -->
+                <div class="audio-player-wrap" id="audio-player-wrap" style="display:none">
+                    <audio id="audio-player" controls></audio>
+                    <div class="file-info" id="file-info"></div>
+                </div>
+
+                <!-- Loading -->
+                <div class="loading" id="analysis-loading" style="display:none">
+                    <div class="spinner"></div>
+                    Running deepfake detection analysis...
+                </div>
+
+                <!-- Result Cards -->
+                <div id="result-area" style="display:none">
+                    <div class="verdict-banner" id="verdict-banner"></div>
+
+                    <!-- Confidence Bar -->
+                    <div class="confidence-section">
+                        <div class="confidence-bar-wrap">
+                            <div class="confidence-bar real" id="conf-bar-real">
+                                <span id="conf-bar-real-text">0%</span>
+                            </div>
+                            <div class="confidence-bar fake" id="conf-bar-fake">
+                                <span id="conf-bar-fake-text">0%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metrics -->
+                    <div class="stats-grid" style="margin-top:12px">
+                        <div class="stat-card">
+                            <div class="label">Classification</div>
+                            <div class="value devices" id="res-label">-</div>
+                            <div class="sub" id="res-confidence">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="label">P(Real)</div>
+                            <div class="value upload" id="res-preal">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="label">P(Fake)</div>
+                            <div class="value blocked" id="res-pfake">-</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="label">Inference Time</div>
+                            <div class="value total" id="res-time">-</div>
+                            <div class="sub" id="res-duration">-</div>
+                        </div>
+                    </div>
+
+                    <!-- Spectrograms -->
+                    <div class="graph-section" style="margin-top:12px">
+                        <div class="graph-header">
+                            <div>
+                                <div class="graph-label">Waveform</div>
+                                <h2>Audio Waveform</h2>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="waveform-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="graph-section">
+                        <div class="graph-header">
+                            <div>
+                                <div class="graph-label">Spectral Evidence</div>
+                                <h2>Frequency Spectrum</h2>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="spectrum-chart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Heuristic Details (if applicable) -->
+                    <div class="graph-section" id="heuristic-section" style="display:none">
+                        <div class="graph-header">
+                            <div>
+                                <div class="graph-label">Heuristic Analysis</div>
+                                <h2>Spectral Anomaly Metrics</h2>
+                            </div>
+                        </div>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="label">High Freq Energy</div>
+                                <div class="value ssh" id="h-high-freq">-</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="label">Low Freq Energy</div>
+                                <div class="value ftp" id="h-low-freq">-</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="label">Spectral Flatness</div>
+                                <div class="value total" id="h-flatness">-</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="label">Spectral Centroid</div>
+                                <div class="value download" id="h-centroid">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: Demo Reel -->
+        <div class="tab-content" id="tab-demo">
+            <div class="device-section">
+                <div class="section-label">Courtroom Presentation</div>
+                <h2>Demo Reel</h2>
+                <div class="subtitle">
+                    Play a clip → Gather jury votes → Run detector → Reveal verdict with spectral evidence
+                </div>
+
+                <div id="demo-loading" class="loading">
+                    <div class="spinner"></div> Loading demo clips...
+                </div>
+
+                <div id="demo-content" style="display:none">
+                    <!-- Clip Selector -->
+                    <div class="settings-field" style="margin-bottom:16px">
+                        <label>Select a demo clip</label>
+                        <select id="demo-select" class="settings-input" onchange="loadDemoClip()">
+                            <option value="">-- Choose a clip --</option>
+                        </select>
+                    </div>
+
+                    <!-- Demo Player -->
+                    <div id="demo-player-area" style="display:none">
+                        <div class="demo-player-wrap">
+                            <audio id="demo-player" controls></audio>
+                            <div class="file-info" id="demo-file-info"></div>
+                        </div>
+
+                        <!-- Jury Voting -->
+                        <div class="graph-section" style="margin-top:12px">
+                            <div class="graph-header">
+                                <div>
+                                    <div class="graph-label">Audience Vote</div>
+                                    <h2>Jury Decision</h2>
+                                </div>
+                            </div>
+                            <div class="stats-grid" style="margin-top:8px">
+                                <div class="stat-card">
+                                    <div class="label">Votes for REAL</div>
+                                    <div class="value upload">
+                                        <input type="number" id="vote-real" class="vote-input" value="0" min="0">
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="label">Votes for FAKE</div>
+                                    <div class="value blocked">
+                                        <input type="number" id="vote-fake" class="vote-input" value="0" min="0">
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="label">Total Jurors</div>
+                                    <div class="value devices">
+                                        <input type="number" id="vote-total" class="vote-input" value="10" min="1">
+                                    </div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="label">Audience Verdict</div>
+                                    <div class="value total" id="audience-verdict">-</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Run Detector -->
+                        <div style="margin-top:12px">
+                            <button class="btn btn-primary btn-lg" id="demo-run-btn" onclick="runDemoDetection()">
+                                🔍 Run Deepfake Detector
+                            </button>
+                        </div>
+
+                        <!-- Demo Loading -->
+                        <div class="loading" id="demo-analysis-loading" style="display:none">
+                            <div class="spinner"></div> Analyzing clip...
+                        </div>
+
+                        <!-- Demo Result -->
+                        <div id="demo-result" style="display:none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab: About -->
+        <div class="tab-content" id="tab-about">
+            <div class="device-section">
+                <div class="section-label">System Information</div>
+                <h2>About</h2>
+                <div class="subtitle">Audio Deepfake & Synthetic Media Detector</div>
+
+                <div class="about-content">
+                    <h3>Architecture</h3>
+                    <p><strong>Phase 1: Data Pipeline</strong> — Source collection, synthetic generation via TTS engines (Bark, Coqui, edge-tts), Voice Activity Detection, fixed-duration segmentation, speaker-disjoint train/val/test splitting (70/15/15).</p>
+                    <p><strong>Phase 2: Feature Extraction & Models</strong> — MFCCs, Mel-Spectrograms, Log-Mel-Spectrograms via librosa. Deep embeddings via Wav2Vec2/HuBERT. Three model options: 2D CNN, ResNet18, Wav2Vec2 fine-tuned head.</p>
+                    <p><strong>Phase 3: Calibration</strong> — Temperature scaling for calibrated probability outputs. Accuracy, Precision, Recall, ROC-AUC, Confusion Matrix evaluation.</p>
+                    <p><strong>Phase 4: Dashboard</strong> — Interactive web interface with drag-and-drop upload, real-time waveform & spectrogram visualization, verdict display with spectral evidence.</p>
+
+                    <h3>Getting Started</h3>
+                    <pre><code># 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Generate synthetic training data
+python generate_synthetic.py
+
+# 3. Train the model
+python train_full.py --model_type cnn --epochs 30
+
+# 4. Launch the web dashboard
+python web_app.py  # opens at http://localhost:9011</code></pre>
+
+                    <h3>Demo Reel</h3>
+                    <p>Go to the <strong>Demo Reel</strong> tab to use the courtroom/jury presentation flow:</p>
+                    <ol>
+                        <li>Select a demo clip</li>
+                        <li>Play it for the jury/audience</li>
+                        <li>Gather audience votes</li>
+                        <li>Run the detector</li>
+                        <li>Reveal the verdict with spectral evidence</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Audio Deepfake & Synthetic Media Detector — Built for Government Communications Security
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

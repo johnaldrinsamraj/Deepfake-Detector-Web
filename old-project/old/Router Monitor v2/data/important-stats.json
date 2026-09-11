@@ -1,0 +1,11 @@
+{
+  "lastUpdatedAt": "2026-06-29T12:09:41.493Z",
+  "activeDeviceCount": 3,
+  "peakDownloadMbps": 802.44,
+  "peakUploadMbps": 142.33,
+  "dailyDownloadBytes": 275412085,
+  "dailyUploadBytes": 57767162,
+  "totalSamples": 1199,
+  "wanReconnects": 23,
+  "lastStorageWriteOk": true
+}
